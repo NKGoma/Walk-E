@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Walk-E: Munich's AI walking companion for the TreeQuest challenge. Turn every walk into a geospatial data adventure.">
+  <title>Walk-E — Your City. Your Adventure.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="logo-tree">&#9752;</span>
+    <span class="logo-text">Walk<span class="accent">-E</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#challenge">Challenge</a></li>
+    <li><a href="#guide">Your Guide</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#ar-magic">AR Magic</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#leaderboard">Leaderboard</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Join Mission</a>
+  <button class="hamburger" aria-label="Menu" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#challenge">Challenge</a>
+  <a href="#guide">Your Guide</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#ar-magic">AR Magic</a>
+  <a href="#impact">Impact</a>
+  <a href="#leaderboard">Leaderboard</a>
+  <a href="#cta" class="mobile-cta">Join Mission</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="city-silhouette">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Munich Frauenkirche twin towers + skyline -->
+      <rect x="100" y="120" width="30" height="80" fill="rgba(0,212,163,0.08)"/>
+      <rect x="200" y="100" width="50" height="100" fill="rgba(0,212,163,0.06)"/>
+      <rect x="320" y="80" width="40" height="120" fill="rgba(0,212,163,0.07)"/>
+      <!-- Frauenkirche towers -->
+      <rect x="500" y="30" width="22" height="170" fill="rgba(0,212,163,0.12)"/>
+      <ellipse cx="511" cy="30" rx="11" ry="18" fill="rgba(0,212,163,0.12)"/>
+      <rect x="545" y="30" width="22" height="170" fill="rgba(0,212,163,0.12)"/>
+      <ellipse cx="556" cy="30" rx="11" ry="18" fill="rgba(0,212,163,0.12)"/>
+      <rect x="480" y="80" width="110" height="120" fill="rgba(0,212,163,0.07)"/>
+      <rect x="700" y="110" width="60" height="90" fill="rgba(0,212,163,0.06)"/>
+      <rect x="820" y="90" width="45" height="110" fill="rgba(0,212,163,0.07)"/>
+      <rect x="900" y="130" width="35" height="70" fill="rgba(0,212,163,0.05)"/>
+      <rect x="1000" y="100" width="55" height="100" fill="rgba(0,212,163,0.06)"/>
+      <rect x="1100" y="120" width="40" height="80" fill="rgba(0,212,163,0.05)"/>
+      <rect x="1200" y="95" width="50" height="105" fill="rgba(0,212,163,0.07)"/>
+      <rect x="1300" y="115" width="30" height="85" fill="rgba(0,212,163,0.05)"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fa-solid fa-leaf"></i> Munich TreeQuest Challenge 2025
+    </div>
+    <h1 class="hero-title">
+      Walk<span class="gradient-text">-E</span>
+    </h1>
+    <p class="hero-tagline">Your City. <span class="accent">Your Adventure.</span></p>
+    <p class="hero-description">
+      An AI holographic companion walks beside you through Munich — turning every tree into a discovery, every step into geospatial data that helps the city grow smarter.
+    </p>
+    <div class="hero-ctas">
+      <a href="#how-it-works" class="btn-primary"><i class="fa-solid fa-play"></i> See How It Works</a>
+      <a href="#ar-magic" class="btn-secondary"><i class="fa-solid fa-camera"></i> AR Demo</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number" data-target="10284">0</span>
+        <span class="stat-label">Trees Mapped</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number" data-target="2847">0</span>
+        <span class="stat-label">Active Explorers</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number" data-target="23">0</span>
+        <span class="stat-label">Districts Covered</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-phone-container">
+    <div class="orbit-ring orbit-1"></div>
+    <div class="orbit-ring orbit-2"></div>
+    <div class="phone-mockup">
+      <div class="phone-notch"></div>
+      <div class="phone-button-vol"></div>
+      <div class="phone-button-power"></div>
+      <div class="phone-screen">
+        <div class="phone-status-bar">
+          <span>9:41</span>
+          <span><i class="fa-solid fa-signal"></i> <i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
+        </div>
+        <div class="phone-app-ui">
+          <div class="mini-map">
+            <div class="map-bg"></div>
+            <div class="map-path"></div>
+            <div class="map-quest-zone"></div>
+            <div class="map-pin current">
+              <div class="pin-pulse"></div>
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="map-tree-pin" style="top:35%;left:60%">&#9752;</div>
+            <div class="map-tree-pin" style="top:55%;left:30%">&#9752;</div>
+            <div class="map-tree-pin" style="top:25%;left:45%">&#9752;</div>
+          </div>
+          <div class="phone-quest-bar">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Quest: Find the 200yr Oak</span>
+            <span class="quest-dist">120m</span>
+          </div>
+        </div>
+      </div>
+      <!-- Hologram character floating above phone -->
+      <div class="hologram-character">
+        <div class="hologram-body">
+          <div class="hologram-head">
+            <div class="head-eye left-eye"></div>
+            <div class="head-eye right-eye"></div>
+            <div class="head-smile"></div>
+          </div>
+          <div class="hologram-neck"></div>
+          <div class="hologram-torso"></div>
+          <div class="hologram-legs">
+            <div class="leg leg-left"></div>
+            <div class="leg leg-right"></div>
+          </div>
+        </div>
+        <div class="hologram-ring ring-1"></div>
+        <div class="hologram-ring ring-2"></div>
+        <div class="hologram-ring ring-3"></div>
+        <div class="hologram-scanline"></div>
+        <div class="hologram-particles">
+          <span>&#9752;</span><span>&#10022;</span><span>&#9752;</span><span>&#10022;</span>
+        </div>
+      </div>
+      <div class="guide-bubble">
+        <span id="hero-bubble-text">"That oak is 180 years old!<br>Tap to learn more 🌳"</span>
+        <div class="bubble-tail"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-mouse">
+      <div class="scroll-dot"></div>
+    </div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CHALLENGE
+═══════════════════════════════════════════════ -->
+<section id="challenge">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-trophy"></i> TreeQuest Challenge</div>
+    <h2>Munich Needs Its Trees Mapped</h2>
+    <p class="section-intro">The GeodataService Munich manages hundreds of thousands of urban trees. Traditional surveying can't keep pace. Walk-E turns every citizen into a precision data collector — without them even realising it.</p>
+
+    <div class="challenge-cards">
+      <div class="challenge-card reveal">
+        <div class="card-icon-wrap" style="background: rgba(0,212,163,0.15)">
+          <i class="fa-solid fa-tree" style="color: var(--primary)"></i>
+        </div>
+        <h3>300,000+</h3>
+        <p>Street trees in Munich requiring continuous monitoring and species verification</p>
+      </div>
+      <div class="challenge-card reveal">
+        <div class="card-icon-wrap" style="background: rgba(123,47,190,0.15)">
+          <i class="fa-solid fa-database" style="color: var(--accent-purple)"></i>
+        </div>
+        <h3>OGC Standards</h3>
+        <p>City geodata must comply with Open Geospatial Consortium specifications for cross-system compatibility</p>
+      </div>
+      <div class="challenge-card reveal">
+        <div class="card-icon-wrap" style="background: rgba(255,184,0,0.15)">
+          <i class="fa-solid fa-graduation-cap" style="color: var(--accent-gold)"></i>
+        </div>
+        <h3>Educational</h3>
+        <p>Students need meaningful engagement with their neighbourhood and smart city concepts</p>
+      </div>
+      <div class="challenge-card reveal">
+        <div class="card-icon-wrap" style="background: rgba(57,255,20,0.1)">
+          <i class="fa-solid fa-clock" style="color: var(--ar-green)"></i>
+        </div>
+        <h3>Real-time</h3>
+        <p>Tree health, species, and location must be updated continuously — not just every few years</p>
+      </div>
+    </div>
+
+    <div class="munich-map-visual reveal">
+      <div class="map-dot-grid" id="challenge-map-grid"></div>
+      <div class="map-label">Munich Urban Forest — Live Coverage</div>
+      <div class="map-legend-row">
+        <span class="map-legend-dot verified"></span><span>Verified</span>
+        <span class="map-legend-dot pending"></span><span>Pending</span>
+        <span class="map-legend-dot unmapped"></span><span>Unmapped</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MEET YOUR GUIDE
+═══════════════════════════════════════════════ -->
+<section id="guide">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-user-astronaut"></i> Your AI Companion</div>
+    <h2>Walk With Your Role Model</h2>
+    <p class="section-intro">Choose a holographic guide tailored to your passions. They walk beside you in AR — contextualising every tree, landmark, and hidden gem through their unique lens.</p>
+
+    <div class="guide-tabs" role="tablist">
+      <button class="guide-tab active" data-guide="nature" role="tab">
+        <i class="fa-solid fa-leaf"></i> Nature Expert
+      </button>
+      <button class="guide-tab" data-guide="historian" role="tab">
+        <i class="fa-solid fa-landmark"></i> Historian
+      </button>
+      <button class="guide-tab" data-guide="tech" role="tab">
+        <i class="fa-solid fa-microchip"></i> Tech Guru
+      </button>
+      <button class="guide-tab" data-guide="car" role="tab">
+        <i class="fa-solid fa-car"></i> Car Enthusiast
+      </button>
+    </div>
+
+    <div class="guide-showcase">
+
+      <div class="guide-panel active" id="guide-nature">
+        <div class="hologram-figure nature-figure">
+          <div class="holo-avatar nature-avatar">
+            <div class="holo-head"></div>
+            <div class="holo-body"></div>
+            <div class="holo-legs-wrap">
+              <div class="holo-leg holo-leg-l"></div>
+              <div class="holo-leg holo-leg-r"></div>
+            </div>
+            <div class="holo-glow"></div>
+          </div>
+          <div class="holo-platform"></div>
+          <div class="holo-particles guide-particles">
+            <span style="animation-delay:0s;left:15%">&#9752;</span>
+            <span style="animation-delay:0.7s;left:40%">&#10022;</span>
+            <span style="animation-delay:1.4s;left:65%">&#9752;</span>
+            <span style="animation-delay:2.1s;left:80%">&#10022;</span>
+          </div>
+        </div>
+        <div class="guide-info">
+          <h3>Dr. Maya — Botanist &amp; Ecologist</h3>
+          <p class="guide-tagline">"Every tree tells a story of the city's past and the city's future."</p>
+          <ul class="guide-features">
+            <li><i class="fa-solid fa-check"></i> Species identification &amp; ecology facts</li>
+            <li><i class="fa-solid fa-check"></i> Seasonal tree health insights</li>
+            <li><i class="fa-solid fa-check"></i> Urban biodiversity quests</li>
+            <li><i class="fa-solid fa-check"></i> Tailored for ages 10–99</li>
+          </ul>
+          <div class="guide-quote-bubble age-quote">
+            "This linden tree has shaded this street since 1847. Its leaves are telling us the air quality story of an entire neighbourhood..."
+          </div>
+          <div class="age-selector">
+            <span class="age-label">Adjust for age:</span>
+            <div class="age-chips" data-guide="nature">
+              <span class="chip active" data-age="kids" data-quote="&quot;Wow! Did you know this tree is older than great-grandpa? Let's count its rings! 🌳&quot;">Kids (6–12)</span>
+              <span class="chip" data-age="teen" data-quote="&quot;This oak sequesters 21 kg CO₂/year — that's 200 km of driving. You literally help the planet by mapping it.&quot;">Teens (13–17)</span>
+              <span class="chip" data-age="adult" data-quote="&quot;Quercus robur — planted circa 1929. Remarkable urban specimen; crown spread indicates excellent soil drainage.&quot;">Adults (18+)</span>
+              <span class="chip" data-age="senior" data-quote="&quot;This tree was here when Munich hosted the 1972 Olympics. It has witnessed a century of the city's history.&quot;">Seniors (60+)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-panel" id="guide-historian">
+        <div class="hologram-figure historian-figure">
+          <div class="holo-avatar historian-avatar">
+            <div class="holo-head"></div>
+            <div class="holo-body"></div>
+            <div class="holo-legs-wrap">
+              <div class="holo-leg holo-leg-l"></div>
+              <div class="holo-leg holo-leg-r"></div>
+            </div>
+            <div class="holo-glow"></div>
+          </div>
+          <div class="holo-platform"></div>
+          <div class="holo-particles guide-particles">
+            <span style="animation-delay:0s;left:10%">📜</span>
+            <span style="animation-delay:0.9s;left:50%">🏛️</span>
+            <span style="animation-delay:1.8s;left:75%">📜</span>
+          </div>
+        </div>
+        <div class="guide-info">
+          <h3>Prof. Karl — City Historian</h3>
+          <p class="guide-tagline">"Every cobblestone has a story. Every tree a witness."</p>
+          <ul class="guide-features">
+            <li><i class="fa-solid fa-check"></i> Historical context for each location</li>
+            <li><i class="fa-solid fa-check"></i> Hidden gems &amp; forgotten stories</li>
+            <li><i class="fa-solid fa-check"></i> Archive photo overlays in AR</li>
+            <li><i class="fa-solid fa-check"></i> Munich through the centuries</li>
+          </ul>
+          <div class="guide-quote-bubble">
+            "The row of linden trees along this Strasse was planted by King Ludwig I in 1840, to line the royal procession route. You're walking in royal footsteps."
+          </div>
+          <div class="age-selector">
+            <span class="age-label">Adjust for age:</span>
+            <div class="age-chips" data-guide="historian">
+              <span class="chip active" data-age="kids" data-quote="&quot;A king planted these trees 180 years ago — that's longer than your school has existed! 👑&quot;">Kids (6–12)</span>
+              <span class="chip" data-age="teen" data-quote="&quot;These lindens predate the Nazi era. They stood here through WWII bombs, the 1972 Olympics, reunification — living witnesses.&quot;">Teens (13–17)</span>
+              <span class="chip" data-age="adult" data-quote="&quot;Tilia × europaea, planted 1840 per Ludwig I's Verschönerungsplan. Urban reforestation as statecraft — remarkably progressive.&quot;">Adults (18+)</span>
+              <span class="chip" data-age="senior" data-quote="&quot;Your grandparents may have walked under these same trees. They've outlasted empires, wars, and three currencies.&quot;">Seniors (60+)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-panel" id="guide-tech">
+        <div class="hologram-figure tech-figure">
+          <div class="holo-avatar tech-avatar">
+            <div class="holo-head"></div>
+            <div class="holo-body"></div>
+            <div class="holo-legs-wrap">
+              <div class="holo-leg holo-leg-l"></div>
+              <div class="holo-leg holo-leg-r"></div>
+            </div>
+            <div class="holo-glow"></div>
+          </div>
+          <div class="holo-platform"></div>
+          <div class="holo-particles guide-particles">
+            <span style="animation-delay:0s;left:20%">⚡</span>
+            <span style="animation-delay:0.6s;left:55%">🔬</span>
+            <span style="animation-delay:1.2s;left:80%">⚡</span>
+          </div>
+        </div>
+        <div class="guide-info">
+          <h3>Alex — AI &amp; Smart City Engineer</h3>
+          <p class="guide-tagline">"The city is a living system. Let's read its data together."</p>
+          <ul class="guide-features">
+            <li><i class="fa-solid fa-check"></i> Real-time sensor data overlays</li>
+            <li><i class="fa-solid fa-check"></i> How YOLO identifies tree species</li>
+            <li><i class="fa-solid fa-check"></i> OGC data standards explained</li>
+            <li><i class="fa-solid fa-check"></i> Smart city infrastructure quests</li>
+          </ul>
+          <div class="guide-quote-bubble">
+            "Your phone just ran a YOLOv8 neural network at 30fps and identified this tree with 97% confidence — all on your CPU, zero cloud calls, zero privacy leakage."
+          </div>
+          <div class="age-selector">
+            <span class="age-label">Adjust for age:</span>
+            <div class="age-chips" data-guide="tech">
+              <span class="chip active" data-age="kids" data-quote="&quot;Your phone's brain just looked at this tree and figured out what kind it is — like a superpower in your pocket! 🤖&quot;">Kids (6–12)</span>
+              <span class="chip" data-age="teen" data-quote="&quot;YOLOv8 runs at 30fps on your CPU. It uses anchor-free detection to classify 500+ species. Want to know how?&quot;">Teens (13–17)</span>
+              <span class="chip" data-age="adult" data-quote="&quot;On-device inference, OGC WFS 2.0 output, differential privacy for GPS coords. GDPR Art.25 by design, not by retrofit.&quot;">Adults (18+)</span>
+              <span class="chip" data-age="senior" data-quote="&quot;The app recognises the tree automatically — like an incredibly smart field guide that updates itself every day.&quot;">Seniors (60+)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-panel" id="guide-car">
+        <div class="hologram-figure car-figure">
+          <div class="holo-avatar car-avatar">
+            <div class="holo-head"></div>
+            <div class="holo-body"></div>
+            <div class="holo-legs-wrap">
+              <div class="holo-leg holo-leg-l"></div>
+              <div class="holo-leg holo-leg-r"></div>
+            </div>
+            <div class="holo-glow"></div>
+          </div>
+          <div class="holo-platform"></div>
+          <div class="holo-particles guide-particles">
+            <span style="animation-delay:0s;left:15%">🏎️</span>
+            <span style="animation-delay:1s;left:60%">⚙️</span>
+            <span style="animation-delay:2s;left:85%">🏎️</span>
+          </div>
+        </div>
+        <div class="guide-info">
+          <h3>Marco — Motorsport &amp; Auto Engineer</h3>
+          <p class="guide-tagline">"Munich built the world's greatest engines — and its finest urban forest."</p>
+          <ul class="guide-features">
+            <li><i class="fa-solid fa-check"></i> BMW HQ &amp; motorsport heritage routes</li>
+            <li><i class="fa-solid fa-check"></i> Trees that absorb your commute's CO₂</li>
+            <li><i class="fa-solid fa-check"></i> Engineering analogies for nature</li>
+            <li><i class="fa-solid fa-check"></i> Nürburgring-style tree leaderboards</li>
+          </ul>
+          <div class="guide-quote-bubble">
+            "This oak processes air like a turbocharged engine — 21 kg of CO₂ absorbed per year, zero fuel cost, 100-year service interval."
+          </div>
+          <div class="age-selector">
+            <span class="age-label">Adjust for age:</span>
+            <div class="age-chips" data-guide="car">
+              <span class="chip active" data-age="kids" data-quote="&quot;This tree cleans more air than a racing car makes dirty! Trees are nature's turbochargers! 🏎️&quot;">Kids (6–12)</span>
+              <span class="chip" data-age="teen" data-quote="&quot;BMW's plant 2km from here offsets its CO₂ with 50,000 trees. You're mapping their performance data right now.&quot;">Teens (13–17)</span>
+              <span class="chip" data-age="adult" data-quote="&quot;Munich's urban forest processes 4,200 tonnes of CO₂ annually — equivalent to removing 900 diesel vehicles from the Mittlerer Ring.&quot;">Adults (18+)</span>
+              <span class="chip" data-age="senior" data-quote="&quot;The first BMW rolled off the line when these trees were saplings. They've been purifying Munich's air ever since.&quot;">Seniors (60+)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════════ -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-map"></i> The Journey</div>
+    <h2>Five Steps to Adventure</h2>
+    <p class="section-intro">From launch to leaderboard in minutes. Walk-E fits seamlessly into school lessons or weekend exploration.</p>
+
+    <div class="steps-container">
+      <div class="steps-line"></div>
+
+      <div class="step reveal">
+        <div class="step-number">01</div>
+        <div class="step-phone-mini">
+          <div class="mini-phone-frame">
+            <div class="mini-screen">
+              <div class="mini-app-open">
+                <div class="mini-logo">W-E</div>
+                <div class="mini-tagline">Walk-E</div>
+                <div class="mini-loading">
+                  <div class="mini-bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h3>Open Walk-E</h3>
+          <p>Launch the app anywhere in Munich. GPS activates instantly, your neighbourhood map loads, and quest zones light up around you.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-number">02</div>
+        <div class="step-phone-mini">
+          <div class="mini-phone-frame">
+            <div class="mini-screen">
+              <div class="mini-guide-select">
+                <div class="mini-guide-row">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#00D4A3,#7B2FBE)">M</div>
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#FFB800,#FF6B35)">K</div>
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#7B2FBE,#4A90D9)">A</div>
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#FF6B35,#FFB800)">R</div>
+                </div>
+                <div class="mini-select-label">Choose Guide</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h3>Choose Your Guide</h3>
+          <p>Pick your AI companion. They calibrate their knowledge, language, and challenges to your age and interests — instantly.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-number">03</div>
+        <div class="step-phone-mini">
+          <div class="mini-phone-frame">
+            <div class="mini-screen">
+              <div class="mini-quest">
+                <div class="mini-quest-icon">&#9752;</div>
+                <div class="mini-quest-text">Find the<br><strong>200yr Oak</strong></div>
+                <div class="mini-quest-arrow">→ 80m</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h3>Follow the Quest</h3>
+          <p>Your holographic guide leads you to nearby trees, landmarks, and hidden urban treasures — narrating the whole way.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-number">04</div>
+        <div class="step-phone-mini">
+          <div class="mini-phone-frame">
+            <div class="mini-screen">
+              <div class="mini-scan">
+                <div class="mini-scan-tree">&#9752;</div>
+                <div class="mini-scan-box">
+                  <div class="mini-corner tl"></div>
+                  <div class="mini-corner tr"></div>
+                  <div class="mini-corner bl"></div>
+                  <div class="mini-corner br"></div>
+                </div>
+                <div class="mini-scan-label">Oak · 97%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h3>Identify the Tree</h3>
+          <p>Point your camera. YOLO v8 identifies the species on-device in milliseconds. Your photo is deleted. Only the data point remains.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-number">05</div>
+        <div class="step-phone-mini">
+          <div class="mini-phone-frame">
+            <div class="mini-screen">
+              <div class="mini-reward">
+                <div class="mini-star">⭐</div>
+                <div class="mini-pts">+250 pts</div>
+                <div class="mini-badge">🌳 Tree Finder</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h3>Earn Points &amp; Climb</h3>
+          <p>Collect points, unlock badges, and climb the city-wide leaderboard. Compete with classmates, neighbours, and districts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     AR + YOLO MAGIC
+═══════════════════════════════════════════════ -->
+<section id="ar-magic">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-eye"></i> AI Vision</div>
+    <h2>See What AI Sees</h2>
+    <p class="section-intro">Walk-E's camera never sleeps. YOLOv8 runs on-device, identifying trees and urban objects in real-time — tagging them with GPS before you even tap.</p>
+
+    <div class="ar-demo-layout">
+      <!-- Phone AR mockup -->
+      <div class="phone-ar-mockup">
+        <div class="phone-frame-ar">
+          <div class="phone-notch-ar"></div>
+          <div class="camera-view">
+            <!-- Street scene background -->
+            <div class="street-bg">
+              <div class="sky-gradient"></div>
+              <div class="sun-orb"></div>
+              <div class="building-row">
+                <div class="building b1"></div>
+                <div class="building b2"></div>
+                <div class="building b3"></div>
+              </div>
+              <div class="sidewalk"></div>
+              <!-- CSS tree -->
+              <div class="css-tree" id="ar-tree">
+                <div class="tree-crown">
+                  <div class="crown-layer cl1"></div>
+                  <div class="crown-layer cl2"></div>
+                  <div class="crown-layer cl3"></div>
+                </div>
+                <div class="tree-trunk"></div>
+              </div>
+              <!-- Second smaller tree -->
+              <div class="css-tree css-tree-2">
+                <div class="tree-crown">
+                  <div class="crown-layer cl1"></div>
+                  <div class="crown-layer cl2"></div>
+                </div>
+                <div class="tree-trunk"></div>
+              </div>
+            </div>
+
+            <!-- AR Overlay -->
+            <div class="ar-overlay">
+              <!-- YOLO bounding box -->
+              <div class="yolo-bbox" id="yolo-bbox">
+                <div class="bbox-corner bc-tl"></div>
+                <div class="bbox-corner bc-tr"></div>
+                <div class="bbox-corner bc-bl"></div>
+                <div class="bbox-corner bc-br"></div>
+                <div class="bbox-scan-line" id="bbox-scan"></div>
+                <div class="species-label" id="species-label">
+                  <i class="fa-solid fa-check-circle"></i> Quercus robur (Oak) — 97.3%
+                </div>
+              </div>
+
+              <!-- AR info card -->
+              <div class="ar-info-card" id="ar-info-card">
+                <div class="ar-card-header">
+                  <span>&#9752; English Oak</span>
+                  <span class="age-tag">~95 yrs</span>
+                </div>
+                <div class="ar-card-body">
+                  <div class="ar-data-row"><span>Height</span><span>18.2 m</span></div>
+                  <div class="ar-data-row"><span>CO₂/yr</span><span>21 kg</span></div>
+                  <div class="ar-data-row">
+                    <span>Health</span>
+                    <div class="health-bar-wrap"><div class="health-bar-fill" style="width:82%"></div></div>
+                  </div>
+                </div>
+                <button class="ar-contribute-btn">
+                  <i class="fa-solid fa-plus"></i> Add to City Map
+                </button>
+              </div>
+
+              <!-- GPS tag -->
+              <div class="gps-tag" id="gps-tag">
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="gps-mono">48.1351° N, 11.5820° E</span>
+              </div>
+
+              <!-- Data packet -->
+              <div class="data-packet" id="data-packet">
+                <i class="fa-solid fa-database"></i>
+              </div>
+
+              <!-- Upload confirmation -->
+              <div class="upload-confirm" id="upload-confirm">
+                <i class="fa-solid fa-check"></i> Synced to Munich GeoData
+              </div>
+            </div>
+
+            <!-- Camera HUD -->
+            <div class="camera-hud">
+              <div class="hud-top">
+                <span class="hud-mode">AR SCAN</span>
+                <div class="hud-icons">
+                  <i class="fa-solid fa-wifi"></i>
+                  <span>87%</span>
+                  <i class="fa-solid fa-battery-three-quarters"></i>
+                </div>
+              </div>
+              <div class="hud-crosshair">
+                <div class="crosshair-h"></div>
+                <div class="crosshair-v"></div>
+              </div>
+              <div class="hud-bottom">
+                <div class="hud-detected">
+                  <span class="pulse-dot"></span>
+                  Objects detected: <strong id="detected-count">0</strong>
+                </div>
+                <span class="hud-privacy"><i class="fa-solid fa-shield-halved"></i> Photo deleted</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explainer steps -->
+      <div class="ar-explainer">
+        <div class="explainer-step active" id="exp-scan">
+          <div class="exp-icon" style="background: rgba(57,255,20,0.15); border-color: var(--ar-green)">
+            <i class="fa-solid fa-crosshairs" style="color: var(--ar-green)"></i>
+          </div>
+          <div class="exp-text">
+            <h4>1. YOLO Scans</h4>
+            <p>On-device neural network detects trees and urban objects 30× per second — no cloud calls, no battery drain.</p>
+          </div>
+        </div>
+        <div class="explainer-step" id="exp-identify">
+          <div class="exp-icon" style="background: rgba(0,212,163,0.15); border-color: var(--primary)">
+            <i class="fa-solid fa-leaf" style="color: var(--primary)"></i>
+          </div>
+          <div class="exp-text">
+            <h4>2. Species ID</h4>
+            <p>Cross-references 500+ Munich tree species. 97%+ accuracy on common urban trees, continuously improving.</p>
+          </div>
+        </div>
+        <div class="explainer-step" id="exp-tag">
+          <div class="exp-icon" style="background: rgba(123,47,190,0.15); border-color: var(--accent-purple)">
+            <i class="fa-solid fa-location-dot" style="color: var(--accent-purple)"></i>
+          </div>
+          <div class="exp-text">
+            <h4>3. GPS Tag + Delete</h4>
+            <p>Precise location captured. Photo deleted immediately after analysis — zero privacy risk, GDPR compliant by design.</p>
+          </div>
+        </div>
+        <div class="explainer-step" id="exp-sync">
+          <div class="exp-icon" style="background: rgba(255,184,0,0.15); border-color: var(--accent-gold)">
+            <i class="fa-solid fa-city" style="color: var(--accent-gold)"></i>
+          </div>
+          <div class="exp-text">
+            <h4>4. OGC Sync</h4>
+            <p>Data point submitted to Munich's geodata infrastructure in WFS 2.0-compliant GeoJSON — plug-and-play with existing GIS.</p>
+          </div>
+        </div>
+
+        <div class="tech-pills">
+          <span class="pill">YOLOv8n — 3ms inference</span>
+          <span class="pill">Core ML / TF Lite</span>
+          <span class="pill">On-device only</span>
+          <span class="pill">No photo storage</span>
+          <span class="pill">OGC WFS 2.0</span>
+          <span class="pill">GDPR Art. 25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     GEOSPATIAL IMPACT
+═══════════════════════════════════════════════ -->
+<section id="impact">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-globe"></i> City-wide Impact</div>
+    <h2>Building Munich's Living Map</h2>
+    <p class="section-intro">Every walk adds a data point. Watch the city's tree knowledge grow in real-time as explorers fan out across Munich's districts.</p>
+
+    <div class="impact-layout">
+      <div class="city-map-viz">
+        <svg class="hex-map" id="hex-map" viewBox="0 0 580 460" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="map-caption">Munich Districts — Tree Data Coverage</div>
+        <div class="map-legend-impact">
+          <span class="li-dot complete"></span><span>Complete</span>
+          <span class="li-dot filling"></span><span>In progress</span>
+          <span class="li-dot empty"></span><span>Unmapped</span>
+        </div>
+      </div>
+
+      <div class="impact-stats-panel">
+        <div class="impact-stat reveal">
+          <div class="istat-icon"><i class="fa-solid fa-tree"></i></div>
+          <div class="istat-number" data-target="10284">0</div>
+          <div class="istat-label">Trees catalogued this month</div>
+          <div class="istat-trend"><i class="fa-solid fa-arrow-trend-up"></i> +12% vs last month</div>
+        </div>
+        <div class="impact-stat reveal">
+          <div class="istat-icon"><i class="fa-solid fa-map-pin"></i></div>
+          <div class="istat-number" data-target="23" data-suffix="/48">0</div>
+          <div class="istat-label">Districts with full coverage</div>
+        </div>
+        <div class="impact-stat reveal">
+          <div class="istat-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <div class="istat-number" data-target="97" data-suffix="%">0</div>
+          <div class="istat-label">Species ID accuracy</div>
+        </div>
+        <div class="impact-stat ogc-stat reveal">
+          <div class="istat-icon"><i class="fa-solid fa-plug"></i></div>
+          <div class="ogc-label">OGC WFS Endpoint</div>
+          <div class="ogc-endpoint">
+            <span class="method-badge">GET</span>
+            <span class="endpoint-url">wfs.geodata.muenchen.de/walk-e/</span>
+          </div>
+          <div class="ogc-status">
+            <span class="status-dot-live"></span> Live &amp; OGC Compliant
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data flow -->
+    <div class="data-flow reveal">
+      <div class="flow-node">
+        <div class="fn-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <span>Walk-E App</span>
+      </div>
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="flow-node">
+        <div class="fn-icon"><i class="fa-solid fa-microchip"></i></div>
+        <span>On-device YOLO</span>
+      </div>
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="flow-node">
+        <div class="fn-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <span>Anonymise</span>
+      </div>
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="flow-node highlight-node">
+        <div class="fn-icon"><i class="fa-solid fa-city"></i></div>
+        <span>Munich GeoData</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     LEADERBOARD
+═══════════════════════════════════════════════ -->
+<section id="leaderboard">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-ranking-star"></i> Competition</div>
+    <h2>The Explorer Rankings</h2>
+    <p class="section-intro">Every tree mapped earns points. Every district completed earns a badge. Every school, class, and individual competes for Munich's top explorer title.</p>
+
+    <div class="podium">
+      <div class="podium-slot rank-2 reveal">
+        <div class="podium-avatar" style="background: linear-gradient(135deg,#7B2FBE,#4A90D9)">MK</div>
+        <div class="podium-name">MaximusK</div>
+        <div class="podium-score">8,420 pts</div>
+        <div class="podium-block second"><span>2</span></div>
+      </div>
+      <div class="podium-slot rank-1 reveal">
+        <div class="crown">👑</div>
+        <div class="podium-avatar gold" style="background: linear-gradient(135deg,#FFB800,#FF6B35)">LS</div>
+        <div class="podium-name">LenaS</div>
+        <div class="podium-score">11,240 pts</div>
+        <div class="podium-block first"><span>1</span></div>
+      </div>
+      <div class="podium-slot rank-3 reveal">
+        <div class="podium-avatar" style="background: linear-gradient(135deg,#00D4A3,#00B88A)">FW</div>
+        <div class="podium-name">FranzW</div>
+        <div class="podium-score">7,890 pts</div>
+        <div class="podium-block third"><span>3</span></div>
+      </div>
+    </div>
+
+    <div class="leaderboard-table" id="leaderboard-table">
+      <div class="lb-header">
+        <span>Rank</span>
+        <span>Explorer</span>
+        <span>Trees</span>
+        <span>District</span>
+        <span>Points</span>
+        <span>Badge</span>
+      </div>
+      <div class="lb-row" data-rank="1"><span class="rank-num gold">#1</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#FFB800,#FF6B35)">LS</div>LenaS</span><span>247</span><span>Schwabing</span><span class="pts-cell">11,240</span><span>🏆</span></div>
+      <div class="lb-row" data-rank="2"><span class="rank-num silver">#2</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#7B2FBE,#4A90D9)">MK</div>MaximusK</span><span>198</span><span>Maxvorstadt</span><span class="pts-cell">8,420</span><span>🌟</span></div>
+      <div class="lb-row" data-rank="3"><span class="rank-num bronze">#3</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#00D4A3,#00B88A)">FW</div>FranzW</span><span>176</span><span>Bogenhausen</span><span class="pts-cell">7,890</span><span>🌲</span></div>
+      <div class="lb-row" data-rank="4"><span class="rank-num">#4</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#FF6B35,#FFB800)">AS</div>AnnaS</span><span>154</span><span>Au-Haidhausen</span><span class="pts-cell">6,540</span><span>🍀</span></div>
+      <div class="lb-row" data-rank="5"><span class="rank-num">#5</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#4A90D9,#7B2FBE)">TM</div>TobiasM</span><span>132</span><span>Isarvorstadt</span><span class="pts-cell">5,780</span><span>🌿</span></div>
+      <div class="lb-row" data-rank="6"><span class="rank-num">#6</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#00D4A3,#7B2FBE)">JK</div>JuliaK</span><span>119</span><span>Neuhausen</span><span class="pts-cell">4,920</span><span>🌱</span></div>
+      <div class="lb-row" data-rank="7"><span class="rank-num">#7</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#FFB800,#7B2FBE)">PL</div>PeterL</span><span>98</span><span>Schwabing</span><span class="pts-cell">4,100</span><span>🍃</span></div>
+    </div>
+
+    <div class="badges-grid reveal">
+      <div class="badge-item earned">
+        <div class="badge-icon-big">🌳</div>
+        <div class="badge-name">Tree Whisperer</div>
+        <div class="badge-desc">Identified 50 trees</div>
+      </div>
+      <div class="badge-item earned">
+        <div class="badge-icon-big">🗺️</div>
+        <div class="badge-name">District Explorer</div>
+        <div class="badge-desc">Mapped a full district</div>
+      </div>
+      <div class="badge-item earned">
+        <div class="badge-icon-big">🔬</div>
+        <div class="badge-name">Species Hunter</div>
+        <div class="badge-desc">Found 10 rare species</div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon-big">🏙️</div>
+        <div class="badge-name">City Champion</div>
+        <div class="badge-desc">Top Munich explorer</div>
+        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon-big">⚡</div>
+        <div class="badge-name">Data Streamer</div>
+        <div class="badge-desc">100 trees in one day</div>
+        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon-big">🌏</div>
+        <div class="badge-name">Green Guardian</div>
+        <div class="badge-desc">All 48 districts mapped</div>
+        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TECH STACK
+═══════════════════════════════════════════════ -->
+<section id="tech">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-code"></i> Under the Hood</div>
+    <h2>Built for Real Cities</h2>
+    <p class="section-intro">Every technical decision serves two masters: the student explorer who just wants a fun walk, and the city GIS engineer who needs rigorous, standards-compliant data.</p>
+
+    <div class="tech-pillars">
+      <div class="tech-pillar reveal">
+        <div class="pillar-icon-wrap" style="background:rgba(57,255,20,0.1)">
+          <i class="fa-solid fa-eye" style="color:var(--ar-green)"></i>
+        </div>
+        <h3>YOLOv8 Vision</h3>
+        <p>Real-time object detection runs entirely on mobile hardware. The nano model achieves 30fps inference at under 3ms — no GPU, no cloud.</p>
+        <div class="tech-tags">
+          <span>YOLOv8n</span><span>Core ML</span><span>TF Lite</span><span>ONNX</span>
+        </div>
+      </div>
+      <div class="tech-pillar reveal">
+        <div class="pillar-icon-wrap" style="background:rgba(0,212,163,0.1)">
+          <i class="fa-solid fa-globe" style="color:var(--primary)"></i>
+        </div>
+        <h3>OGC Standards</h3>
+        <p>WFS 2.0, CityGML 3.0, and GeoJSON output. Plug-and-play integration with Munich's existing GIS infrastructure — zero custom adapters needed.</p>
+        <div class="tech-tags">
+          <span>WFS 2.0</span><span>GeoJSON</span><span>CityGML 3</span><span>PostGIS</span>
+        </div>
+      </div>
+      <div class="tech-pillar reveal">
+        <div class="pillar-icon-wrap" style="background:rgba(123,47,190,0.1)">
+          <i class="fa-solid fa-shield-halved" style="color:var(--accent-purple)"></i>
+        </div>
+        <h3>Privacy First</h3>
+        <p>Photos never leave the device. Only species ID + GPS coordinates are transmitted. GDPR Article 25 "privacy by design" — not as an afterthought.</p>
+        <div class="tech-tags">
+          <span>On-device ML</span><span>Zero photos stored</span><span>GDPR Art. 25</span><span>Anonymous IDs</span>
+        </div>
+      </div>
+      <div class="tech-pillar reveal">
+        <div class="pillar-icon-wrap" style="background:rgba(255,184,0,0.1)">
+          <i class="fa-solid fa-cube" style="color:var(--accent-gold)"></i>
+        </div>
+        <h3>AR Framework</h3>
+        <p>ARKit / ARCore for occlusion-aware hologram rendering. Your guide appears at 1:1 human scale, anchored to the pavement beside you.</p>
+        <div class="tech-tags">
+          <span>ARKit 6</span><span>ARCore</span><span>WebXR</span><span>SceneKit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-diagram reveal">
+      <div class="arch-layer">
+        <div class="arch-layer-label">📱 Mobile Layer</div>
+        <div class="arch-boxes">
+          <div class="arch-box">Walk-E App</div>
+          <div class="arch-box">YOLO Engine</div>
+          <div class="arch-box">AR Runtime</div>
+        </div>
+      </div>
+      <div class="arch-connector"><div class="conn-line"></div><i class="fa-solid fa-arrows-up-down"></i></div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">🛡️ Privacy Layer</div>
+        <div class="arch-boxes">
+          <div class="arch-box">Anonymiser</div>
+          <div class="arch-box">Data Validator</div>
+        </div>
+      </div>
+      <div class="arch-connector"><div class="conn-line"></div><i class="fa-solid fa-arrows-up-down"></i></div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">🏙️ Munich City Layer</div>
+        <div class="arch-boxes">
+          <div class="arch-box">WFS Server</div>
+          <div class="arch-box">GIS Database</div>
+          <div class="arch-box">Open Data Portal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA
+═══════════════════════════════════════════════ -->
+<section id="cta">
+  <canvas id="cta-canvas"></canvas>
+  <div class="cta-frauenkirche">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="145" y="60" width="28" height="240" fill="rgba(0,212,163,0.08)"/>
+      <ellipse cx="159" cy="60" rx="14" ry="22" fill="rgba(0,212,163,0.08)"/>
+      <rect x="185" y="60" width="28" height="240" fill="rgba(0,212,163,0.08)"/>
+      <ellipse cx="199" cy="60" rx="14" ry="22" fill="rgba(0,212,163,0.08)"/>
+      <rect x="125" y="120" width="130" height="180" fill="rgba(0,212,163,0.05)"/>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="cta-content">
+      <div class="cta-badge">&#9752; TreeQuest Solution 2025</div>
+      <h2>Ready to Transform Munich?</h2>
+      <p>Walk-E is Munich's answer to the TreeQuest challenge — making every citizen a scientist, every walk an adventure, and every tree a data point for a smarter, greener city.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-cta-primary">
+          <i class="fa-solid fa-rocket"></i> Download Walk-E
+        </a>
+        <a href="https://github.com/nkgoma/walk-e" class="btn-cta-secondary" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> View Source
+        </a>
+      </div>
+      <div class="cta-partners">
+        <span>A solution for</span>
+        <div class="partner-row">
+          <span class="partner-chip"><i class="fa-solid fa-tree"></i> GeodataService München</span>
+          <span class="partner-chip"><i class="fa-solid fa-city"></i> Stadt München</span>
+          <span class="partner-chip"><i class="fa-solid fa-database"></i> Open Data Bavaria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Walk<span>-E</span></div>
+    <p class="footer-tagline">Munich TreeQuest Challenge 2025 &nbsp;·&nbsp; Privacy First &nbsp;·&nbsp; OGC Compliant</p>
+    <div class="footer-links">
+      <a href="#challenge">Challenge</a>
+      <a href="#guide">Your Guide</a>
+      <a href="#ar-magic">AR Demo</a>
+      <a href="#leaderboard">Leaderboard</a>
+    </div>
+    <p class="footer-copy">Built with ❤️ for Munich &amp; the TreeQuest community</p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
