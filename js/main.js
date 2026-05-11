@@ -448,65 +448,240 @@ function initConvFeatures() {
 }
 
 // ═══════════════════════════════════════════════
-// ANIMATED DEMO — 4-step screencast
+// EXPLAINER VIDEO — rAF-driven player
 // ═══════════════════════════════════════════════
-function initDemo() {
-  const screen = document.getElementById('demo-screen');
-  const captionsEl = document.getElementById('demo-captions');
-  const stepsEl = document.getElementById('demo-steps');
-  if (!screen) return;
-
-  const states = screen.querySelectorAll('.ds-state');
-  const captions = captionsEl ? captionsEl.querySelectorAll('.demo-caption') : [];
-  const steps = stepsEl ? stepsEl.querySelectorAll('.demo-step') : [];
-  const durations = [3200, 4000, 3800, 3500];
-
-  let current = 0;
-  let timer = null;
-  let running = false;
-
-  function goTo(idx) {
-    states[current].classList.remove('active');
-    states[current].classList.add('exit');
-    setTimeout(() => states[current].classList.remove('exit'), 500);
-
-    if (captions[current]) captions[current].classList.remove('active');
-    if (steps[current]) steps[current].classList.remove('active');
-
-    current = idx;
-    states[current].classList.add('active');
-    if (captions[current]) captions[current].classList.add('active');
-    if (steps[current]) steps[current].classList.add('active');
-  }
-
-  function advance() {
-    const next = (current + 1) % states.length;
-    goTo(next);
-    timer = setTimeout(advance, durations[current]);
-  }
-
-  // Start when section scrolls into view
-  const section = document.getElementById('demo');
+function initExplainer() {
+  const section = document.getElementById('explainer');
   if (!section) return;
-  const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && !running) {
-      running = true;
-      timer = setTimeout(advance, durations[0]);
-    }
-  }, { threshold: 0.3 });
-  observer.observe(section);
 
-  // Manual step click
-  if (stepsEl) {
-    stepsEl.addEventListener('click', e => {
-      const step = e.target.closest('.demo-step');
-      if (!step) return;
-      clearTimeout(timer);
-      const idx = parseInt(step.dataset.step, 10);
-      goTo(idx);
-      timer = setTimeout(advance, durations[current]);
+  // Scene config: real durations (ms) + fake display start (s)
+  const SCENES = [
+    { duration: 3500, displayStart: 0  },  // Choose
+    { duration: 5000, displayStart: 15 },  // Walk
+    { duration: 4000, displayStart: 42 },  // Detect
+    { duration: 3500, displayStart: 53 },  // Impact
+  ];
+  const TOTAL_DISPLAY = 58; // fake total seconds shown in timestamp
+
+  const states     = section.querySelectorAll('.vp-state');
+  const chLabels   = section.querySelectorAll('.vp-ch-label');
+  const chDots     = section.querySelectorAll('.vp-ch');
+  const fillEl     = document.getElementById('vp-fill');
+  const timeEl     = document.getElementById('vp-time');
+  const playBtn    = document.getElementById('vp-play-btn');
+  const playIcon   = document.getElementById('vp-play-icon');
+  const barWrap    = document.getElementById('vp-bar-wrap');
+
+  let currentScene = 0;
+  let playing      = false;
+  let rafId        = null;
+  let sceneStart   = 0;  // performance.now() when current scene began
+  let elapsedInScene = 0; // ms spent in current scene before any pause
+
+  // ── Build hex map for scene 3 ──
+  const mapEl = document.getElementById('si-map');
+  if (mapEl) {
+    for (let i = 0; i < 108; i++) {
+      const d = document.createElement('div');
+      d.className = 'si-dot';
+      mapEl.appendChild(d);
+    }
+  }
+
+  // ── Scene lifecycle hooks ──
+  function onSceneEnter(idx) {
+    if (idx === 1) startDistanceCounter();
+    if (idx === 2) startARSequence();
+    if (idx === 3) startImpact();
+  }
+
+  // Distance counter (scene 1)
+  let distTimer = null;
+  function startDistanceCounter() {
+    const el = document.getElementById('sw-distance');
+    if (!el) return;
+    el.textContent = '0.0 km';
+    let val = 0;
+    clearInterval(distTimer);
+    distTimer = setInterval(() => {
+      val += 0.04;
+      if (val >= 1.2) { val = 1.2; clearInterval(distTimer); }
+      el.textContent = val.toFixed(1) + ' km';
+    }, 170);
+  }
+
+  // AR sequence (scene 2)
+  let arTimers = [];
+  function startARSequence() {
+    arTimers.forEach(clearTimeout);
+    arTimers = [];
+    const bbox  = document.getElementById('sd-bbox');
+    const label = document.getElementById('sd-label');
+    const toast = document.getElementById('sd-toast');
+    if (!bbox) return;
+    bbox.classList.remove('scanning','locked');
+    if (label) label.classList.remove('visible');
+    if (toast) toast.classList.remove('visible');
+    arTimers.push(setTimeout(() => bbox.classList.add('scanning'), 400));
+    arTimers.push(setTimeout(() => { bbox.classList.add('locked'); }, 1900));
+    arTimers.push(setTimeout(() => { if (label) label.classList.add('visible'); }, 2300));
+    arTimers.push(setTimeout(() => { if (toast) toast.classList.add('visible'); }, 2800));
+  }
+
+  // Impact counters (scene 3)
+  let impactTimers = [];
+  function startImpact() {
+    impactTimers.forEach(clearTimeout);
+    impactTimers = [];
+    const badge   = document.getElementById('si-badge');
+    if (badge) badge.classList.remove('visible');
+
+    // light up map dots progressively
+    const dots = mapEl ? mapEl.querySelectorAll('.si-dot') : [];
+    dots.forEach(d => d.classList.remove('lit','new'));
+    let dotIdx = 0;
+    const lightDots = () => {
+      if (dotIdx < dots.length) {
+        dots[dotIdx].classList.add('lit');
+        dotIdx++;
+        impactTimers.push(setTimeout(lightDots, 28));
+      }
+    };
+    lightDots();
+
+    // flash 2 "new" dots
+    impactTimers.push(setTimeout(() => {
+      const candidates = Array.from(dots).filter(d => d.classList.contains('lit'));
+      [22, 71].forEach(i => { if (candidates[i]) candidates[i].classList.add('new'); });
+    }, 2000));
+
+    // count-up stats
+    countUp('si-km',   0, 5.4, 1800, 1);
+    countUp('si-trees',0, 3,   1600, 0);
+    countUp('si-pts',  0, 280, 2000, 0);
+
+    impactTimers.push(setTimeout(() => { if (badge) badge.classList.add('visible'); }, 2600));
+  }
+
+  function countUp(id, from, to, ms, decimals) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const start = performance.now();
+    const step = () => {
+      const p = Math.min((performance.now() - start) / ms, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = (from + (to - from) * ease).toFixed(decimals);
+      if (p < 1) impactTimers.push(requestAnimationFrame(step));
+    };
+    step();
+  }
+
+  // ── Scene switching ──
+  function goToScene(idx, resetElapsed) {
+    states[currentScene].classList.remove('active');
+    chLabels[currentScene].classList.remove('active');
+    chDots[currentScene].classList.remove('active');
+
+    currentScene = idx;
+    states[currentScene].classList.add('active');
+    chLabels[currentScene].classList.add('active');
+    chDots[currentScene].classList.add('active');
+
+    if (resetElapsed !== false) elapsedInScene = 0;
+    sceneStart = performance.now();
+    onSceneEnter(idx);
+  }
+
+  // ── rAF progress loop ──
+  function tick(now) {
+    const elapsed = elapsedInScene + (now - sceneStart);
+    const sceneDur = SCENES[currentScene].duration;
+
+    // Advance scene if time exceeded
+    if (elapsed >= sceneDur) {
+      const nextIdx = (currentScene + 1) % SCENES.length;
+      goToScene(nextIdx, true);
+      rafId = requestAnimationFrame(tick);
+      return;
+    }
+
+    // Compute overall progress for fill bar
+    let totalElapsed = 0;
+    for (let i = 0; i < currentScene; i++) totalElapsed += SCENES[i].duration;
+    totalElapsed += elapsed;
+    const totalDur = SCENES.reduce((a, s) => a + s.duration, 0);
+    const pct = (totalElapsed / totalDur) * 100;
+    fillEl.style.width = pct + '%';
+
+    // Fake display time
+    const displaySec = SCENES[currentScene].displayStart + (elapsed / sceneDur) *
+      ((currentScene + 1 < SCENES.length ? SCENES[currentScene + 1].displayStart : TOTAL_DISPLAY) - SCENES[currentScene].displayStart);
+    const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+    timeEl.textContent = `${fmt(displaySec)} / ${fmt(TOTAL_DISPLAY)}`;
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // ── Play / Pause ──
+  function play() {
+    playing = true;
+    playIcon.className = 'fa-solid fa-pause';
+    sceneStart = performance.now();
+    rafId = requestAnimationFrame(tick);
+    onSceneEnter(currentScene);
+  }
+
+  function pause() {
+    playing = false;
+    playIcon.className = 'fa-solid fa-play';
+    elapsedInScene += performance.now() - sceneStart;
+    cancelAnimationFrame(rafId);
+  }
+
+  playBtn.addEventListener('click', () => { playing ? pause() : play(); });
+
+  // ── Chapter dot clicks ──
+  section.querySelectorAll('.vp-ch, .vp-ch-label').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.scene, 10);
+      if (isNaN(idx)) return;
+      if (playing) cancelAnimationFrame(rafId);
+      elapsedInScene = 0;
+      goToScene(idx, true);
+      if (playing) rafId = requestAnimationFrame(tick);
+      else onSceneEnter(idx);
+    });
+  });
+
+  // ── Scrub bar ──
+  if (barWrap) {
+    barWrap.addEventListener('click', e => {
+      const bar = barWrap.querySelector('.vp-bar');
+      const rect = bar.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const totalDur = SCENES.reduce((a, s) => a + s.duration, 0);
+      let target = pct * totalDur;
+      let scene = 0;
+      for (let i = 0; i < SCENES.length; i++) {
+        if (target <= SCENES[i].duration) { scene = i; break; }
+        target -= SCENES[i].duration;
+        scene = i + 1;
+      }
+      scene = Math.min(scene, SCENES.length - 1);
+      if (playing) cancelAnimationFrame(rafId);
+      elapsedInScene = Math.max(0, target);
+      goToScene(scene, false);
+      if (playing) rafId = requestAnimationFrame(tick);
+      else onSceneEnter(scene);
     });
   }
+
+  // ── Auto-start on scroll into view ──
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !playing) play();
+    else if (!entries[0].isIntersecting && playing) pause();
+  }, { threshold: 0.4 });
+  observer.observe(section);
 }
 
 // ═══════════════════════════════════════════════
@@ -548,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new ParticleSystem('particle-canvas');
   new ParticleSystem('cta-canvas', 'cta');
 
-  initDemo();
+  initExplainer();
   initHeroBefore();
   initNavbar();
   initMobileMenu();
