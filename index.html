@@ -45,82 +45,6 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
-     HERO BEFORE — two challenges, full overlay
-══════════════════════════════════════════════ -->
-<div id="hero-before">
-  <div class="hb-inner">
-    <div class="hb-split">
-
-      <!-- Challenge 01: The Data Problem -->
-      <div class="challenge-card c1">
-        <div class="cc-label">CHALLENGE <span>01</span></div>
-        <h2 class="cc-headline">300,000 trees.<br>Barely known.</h2>
-        <div class="dot-grid" id="dot-grid"><!-- JS generates 80 dots --></div>
-        <div class="cc-stats">
-          <div class="cc-stat">
-            <span class="cc-stat-n">77<span class="cc-stat-unit">%</span></span>
-            <span class="cc-stat-l">never verified</span>
-          </div>
-          <div class="cc-stat">
-            <span class="cc-stat-n">€2,400</span>
-            <span class="cc-stat-l">per km² to survey</span>
-          </div>
-        </div>
-        <p class="cc-sub">The city has a data problem it can't afford to fix at traditional cost and pace.</p>
-      </div>
-
-      <!-- Centre divider -->
-      <div class="challenge-divider">
-        <div class="cd-line"></div>
-        <div class="cd-node"></div>
-        <div class="cd-line"></div>
-      </div>
-
-      <!-- Challenge 02: The Motivation Problem -->
-      <div class="challenge-card c2">
-        <div class="cc-label">CHALLENGE <span>02</span> <em class="cc-harder">(the harder one)</em></div>
-        <h2 class="cc-headline">Nobody wants<br>to fix it.</h2>
-        <div class="walk-scene">
-          <div class="walk-tree-grey">
-            <div class="wtg-crown"></div>
-            <div class="wtg-trunk"></div>
-          </div>
-          <div class="walk-figure">
-            <div class="wf-head"></div>
-            <div class="wf-torso">
-              <div class="wf-phone-screen"></div>
-            </div>
-            <div class="wf-legs">
-              <div class="wf-leg l"></div>
-              <div class="wf-leg r"></div>
-            </div>
-          </div>
-        </div>
-        <div class="cc-stats">
-          <div class="cc-stat">
-            <span class="cc-stat-n warn">0</span>
-            <span class="cc-stat-l">students motivated<br>to map trees</span>
-          </div>
-          <div class="cc-stat">
-            <span class="cc-stat-n">∞</span>
-            <span class="cc-stat-l">cost to change<br>human behaviour</span>
-          </div>
-        </div>
-        <p class="cc-sub">You can't crowdsource what nobody wants to do. Hire experts? Slow. Expensive. Students still learn nothing.</p>
-      </div>
-
-    </div>
-
-    <div class="hb-scroll-hint">
-      <div class="hb-arrow-wrap">
-        <span class="hb-scroll-arrow">↓</span>
-      </div>
-      <span>one scroll solves both</span>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
      HERO REVEAL — Walk-E: both problems solved
 ══════════════════════════════════════════════ -->
 <section id="hero">
@@ -218,6 +142,179 @@
   <div class="scroll-indicator">
     <div class="scroll-mouse"><div class="scroll-dot"></div></div>
     <span>scroll to explore</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     HOW IT WORKS — animated demo
+══════════════════════════════════════════════ -->
+<section id="demo">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-circle-play"></i> See it happen</div>
+    <h2>90 seconds. A real conversation.<br>3 trees mapped without trying.</h2>
+
+    <div class="demo-layout">
+
+      <!-- Animated phone "screencast" -->
+      <div class="demo-phone-col">
+        <div class="demo-phone-outer">
+          <div class="demo-phone">
+            <div class="demo-notch"></div>
+            <div class="demo-screen" id="demo-screen">
+
+              <!-- Step 0: Choose your legend -->
+              <div class="ds-state active" data-step="0">
+                <div class="dss-header">
+                  <span class="dss-time">09:41</span>
+                  <span class="dss-app">Walk-E</span>
+                </div>
+                <div class="dss-choose-title">Choose who<br>you walk with</div>
+                <div class="dss-legend-row">
+                  <div class="dss-leg-card highlighted">
+                    <div class="dss-leg-av" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">F</div>
+                    <span>Freddie</span>
+                    <span class="dss-route-tag">Schwabing</span>
+                  </div>
+                  <div class="dss-leg-card">
+                    <div class="dss-leg-av" style="background:linear-gradient(135deg,#1a6fa8,#c9a227)">S</div>
+                    <span>Sisi</span>
+                    <span class="dss-route-tag">Royal</span>
+                  </div>
+                  <div class="dss-leg-card">
+                    <div class="dss-leg-av" style="background:linear-gradient(135deg,#DC052D,#fff)">B</div>
+                    <span>Kaiser</span>
+                    <span class="dss-route-tag">Giesing</span>
+                  </div>
+                </div>
+                <div class="dss-start-btn">Start walk with Freddie →</div>
+              </div>
+
+              <!-- Step 1: Walking + conversation -->
+              <div class="ds-state" data-step="1">
+                <div class="dss-header">
+                  <span class="dss-time">09:43</span>
+                  <span class="dss-live"><span class="dss-live-dot"></span>Live</span>
+                </div>
+                <div class="dss-conv-header">
+                  <div class="dss-av" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">F</div>
+                  <div>
+                    <div class="dss-name">Freddie Mercury</div>
+                    <div class="dss-subt">Schwabing · Chapter 2</div>
+                  </div>
+                </div>
+                <div class="dss-waveform">
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div>
+                </div>
+                <div class="dss-bubble them">"This street — right here. I walked it every night after the studio. Munich never judged me for anything."</div>
+                <div class="dss-bubble me">What made you stay so long?</div>
+                <div class="dss-typing"><span></span><span></span><span></span></div>
+              </div>
+
+              <!-- Step 2: Tree captured silently -->
+              <div class="ds-state" data-step="2">
+                <div class="dss-header">
+                  <span class="dss-time">09:51</span>
+                  <span class="dss-live"><span class="dss-live-dot"></span>Live</span>
+                </div>
+                <div class="dss-conv-header">
+                  <div class="dss-av" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">F</div>
+                  <div>
+                    <div class="dss-name">Freddie Mercury</div>
+                    <div class="dss-subt">Chapter 3 · Near Englischer Garten</div>
+                  </div>
+                </div>
+                <div class="dss-waveform">
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div><div class="dss-wv"></div>
+                  <div class="dss-wv"></div><div class="dss-wv"></div>
+                </div>
+                <div class="dss-bubble them">"That oak by the path — I sat under it for hours. Before I had to be Freddie Mercury again."</div>
+                <div class="dss-tree-toast" id="demo-toast">
+                  <i class="fa-solid fa-tree"></i>
+                  <span>Quercus robur · ~181 yrs · logged</span>
+                  <i class="fa-solid fa-check" style="margin-left:auto;color:var(--primary)"></i>
+                </div>
+                <div class="dss-privacy-note">Photo deleted on-device · only species + GPS sent</div>
+              </div>
+
+              <!-- Step 3: Route complete -->
+              <div class="ds-state" data-step="3">
+                <div class="dss-header">
+                  <span class="dss-time">10:14</span>
+                  <span class="dss-app">Walk-E</span>
+                </div>
+                <div class="dss-complete-icon">✓</div>
+                <div class="dss-complete-title">Route complete</div>
+                <div class="dss-complete-sub">Schwabing with Freddie</div>
+                <div class="dss-results">
+                  <div class="dss-r-item">
+                    <span class="dss-r-n">5.4</span>
+                    <span class="dss-r-l">km walked</span>
+                  </div>
+                  <div class="dss-r-item">
+                    <span class="dss-r-n" style="color:var(--primary)">3</span>
+                    <span class="dss-r-l">trees confirmed</span>
+                  </div>
+                  <div class="dss-r-item">
+                    <span class="dss-r-n" style="color:var(--accent-gold)">+280</span>
+                    <span class="dss-r-l">points</span>
+                  </div>
+                </div>
+                <div class="dss-twin-note">
+                  <i class="fa-solid fa-city"></i>
+                  2 trees new to Munich's digital twin
+                </div>
+              </div>
+
+            </div><!-- /demo-screen -->
+          </div>
+
+          <!-- Step progress dots -->
+          <div class="demo-steps" id="demo-steps">
+            <div class="demo-step active" data-step="0">Choose</div>
+            <div class="demo-step" data-step="1">Walk</div>
+            <div class="demo-step" data-step="2">Discover</div>
+            <div class="demo-step" data-step="3">Mapped</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: step-by-step captions -->
+      <div class="demo-captions" id="demo-captions">
+
+        <div class="demo-caption active" data-step="0">
+          <div class="dc-num">01</div>
+          <h3>Pick a legend. Pick a route.</h3>
+          <p>Six historical figures. Each with a curated Munich route, real historical context, and an AI that genuinely knows who they were. Choose Freddie Mercury and start walking Schwabing.</p>
+        </div>
+
+        <div class="demo-caption" data-step="1">
+          <div class="dc-num">02</div>
+          <h3>Have a real conversation.</h3>
+          <p>Speak naturally through your headphones. Freddie answers in real time, reacting to exactly where you are. Ask what you want. Deviate from the script. He rolls with it.</p>
+          <div class="dc-note"><i class="fa-solid fa-lock"></i> No data stored · GDPR Article 25</div>
+        </div>
+
+        <div class="demo-caption" data-step="2">
+          <div class="dc-num">03</div>
+          <h3>Trees are logged. You barely notice.</h3>
+          <p>While you're deep in conversation, Walk-E's camera identifies every tree you pass. A small toast. That's it. The tree's species and GPS are transmitted anonymously — photo never leaves your phone.</p>
+          <div class="dc-note"><i class="fa-solid fa-shield-halved"></i> On-device inference · photo deleted immediately</div>
+        </div>
+
+        <div class="demo-caption" data-step="3">
+          <div class="dc-num">04</div>
+          <h3>Munich's digital twin grows.</h3>
+          <p>After three independent walkers confirm the same tree, it's committed to Munich's OGC WFS 2.0 dataset. You contributed to the city's official geospatial infrastructure. Without trying.</p>
+          <div class="dc-note"><i class="fa-solid fa-database"></i> OGC WFS 2.0 · 3-walk confirmation</div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -440,10 +537,10 @@
           </div>
         </div>
         <div class="conv-feature" id="cf-memory">
-          <div class="cf-icon"><i class="fa-solid fa-brain"></i></div>
+          <div class="cf-icon"><i class="fa-solid fa-comments"></i></div>
           <div class="cf-text">
-            <h4>They remember you</h4>
-            <p>Sisi remembers that you asked about her marriage last time. Freddie picks up the conversation where you left off. Each walk builds on the last.</p>
+            <h4>Ask anything</h4>
+            <p>Deviate from the script entirely. Ask Freddie about songwriting. Ask Sisi about loneliness. The AI stays in character and gives a genuine answer — no pre-written responses.</p>
           </div>
         </div>
         <div class="conv-feature" id="cf-passive">

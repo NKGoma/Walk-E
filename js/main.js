@@ -448,6 +448,68 @@ function initConvFeatures() {
 }
 
 // ═══════════════════════════════════════════════
+// ANIMATED DEMO — 4-step screencast
+// ═══════════════════════════════════════════════
+function initDemo() {
+  const screen = document.getElementById('demo-screen');
+  const captionsEl = document.getElementById('demo-captions');
+  const stepsEl = document.getElementById('demo-steps');
+  if (!screen) return;
+
+  const states = screen.querySelectorAll('.ds-state');
+  const captions = captionsEl ? captionsEl.querySelectorAll('.demo-caption') : [];
+  const steps = stepsEl ? stepsEl.querySelectorAll('.demo-step') : [];
+  const durations = [3200, 4000, 3800, 3500];
+
+  let current = 0;
+  let timer = null;
+  let running = false;
+
+  function goTo(idx) {
+    states[current].classList.remove('active');
+    states[current].classList.add('exit');
+    setTimeout(() => states[current].classList.remove('exit'), 500);
+
+    if (captions[current]) captions[current].classList.remove('active');
+    if (steps[current]) steps[current].classList.remove('active');
+
+    current = idx;
+    states[current].classList.add('active');
+    if (captions[current]) captions[current].classList.add('active');
+    if (steps[current]) steps[current].classList.add('active');
+  }
+
+  function advance() {
+    const next = (current + 1) % states.length;
+    goTo(next);
+    timer = setTimeout(advance, durations[current]);
+  }
+
+  // Start when section scrolls into view
+  const section = document.getElementById('demo');
+  if (!section) return;
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !running) {
+      running = true;
+      timer = setTimeout(advance, durations[0]);
+    }
+  }, { threshold: 0.3 });
+  observer.observe(section);
+
+  // Manual step click
+  if (stepsEl) {
+    stepsEl.addEventListener('click', e => {
+      const step = e.target.closest('.demo-step');
+      if (!step) return;
+      clearTimeout(timer);
+      const idx = parseInt(step.dataset.step, 10);
+      goTo(idx);
+      timer = setTimeout(advance, durations[current]);
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════
 // HERO BEFORE — overlay lift + dot grid
 // ═══════════════════════════════════════════════
 function initHeroBefore() {
@@ -486,6 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new ParticleSystem('particle-canvas');
   new ParticleSystem('cta-canvas', 'cta');
 
+  initDemo();
   initHeroBefore();
   initNavbar();
   initMobileMenu();
