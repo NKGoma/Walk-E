@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Walk-E: Walk Munich with legends. Have real conversations with history's icons as you explore the city — and map its trees without even knowing it.">
-  <title>Walk-E — Walk Munich with Legends</title>
+  <meta name="description" content="Walk-E: Munich's 300,000 trees are barely mapped. Walk-E changes that — by making the city irresistible to explore.">
+  <title>Walk-E — Munich's Trees Have Stories Worth Hearing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -24,10 +24,10 @@
   <ul class="nav-links">
     <li><a href="#legends">The Legends</a></li>
     <li><a href="#conversation">The Experience</a></li>
-    <li><a href="#game-modes">Game Modes</a></li>
-    <li><a href="#mission">Hidden Mission</a></li>
+    <li><a href="#student-story">Real Stories</a></li>
+    <li><a href="#education">What They Learn</a></li>
+    <li><a href="#mission">How It Works</a></li>
     <li><a href="#future">Future Vision</a></li>
-    <li><a href="#leaderboard">Rankings</a></li>
   </ul>
   <a href="#cta" class="nav-cta">Join the Walk</a>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -37,36 +37,101 @@
 <div class="mobile-menu" id="mobile-menu">
   <a href="#legends">The Legends</a>
   <a href="#conversation">The Experience</a>
-  <a href="#game-modes">Game Modes</a>
-  <a href="#mission">Hidden Mission</a>
+  <a href="#student-story">Real Stories</a>
+  <a href="#education">What They Learn</a>
+  <a href="#mission">How It Works</a>
   <a href="#future">Future Vision</a>
-  <a href="#leaderboard">Rankings</a>
   <a href="#cta" class="mobile-cta">Join the Walk</a>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     HERO
+     HERO — problem first, then solution
 ══════════════════════════════════════════════ -->
 <section id="hero">
   <canvas id="particle-canvas"></canvas>
 
+  <!-- Left: The tree as protagonist -->
+  <div class="hero-tree-side">
+    <div class="hero-tree-viz">
+      <!-- CSS tree -->
+      <div class="big-tree">
+        <div class="bt-crown">
+          <div class="bt-layer l1"></div>
+          <div class="bt-layer l2"></div>
+          <div class="bt-layer l3"></div>
+          <div class="bt-layer l4"></div>
+        </div>
+        <div class="bt-trunk"></div>
+      </div>
+      <!-- Data overlay — appears on the tree like a digital twin -->
+      <div class="tree-data-card">
+        <div class="tdc-coords"><i class="fa-solid fa-location-dot"></i> 48.1351° N · 11.5820° E</div>
+        <div class="tdc-row"><span>Species</span><span>Quercus robur</span></div>
+        <div class="tdc-row"><span>Est. age</span><span>~182 years</span></div>
+        <div class="tdc-row"><span>CO₂/yr</span><span>21 kg</span></div>
+        <div class="tdc-row"><span>Last verified</span><span class="tdc-unverified">⚠ Never</span></div>
+        <div class="tdc-divider"></div>
+        <div class="tdc-history">
+          <span class="tdc-hist-label">Has witnessed:</span>
+          <div class="tdc-events">
+            <span>Sisi's Munich · 1854</span>
+            <span>Two World Wars</span>
+            <span>1972 Olympics</span>
+            <span>Freddie's Schwabing · 1981</span>
+            <span>German reunification</span>
+            <span>Every summer since</span>
+          </div>
+        </div>
+      </div>
+      <!-- Tree number -->
+      <div class="tree-counter-badge">
+        <span class="tcb-num" id="tree-counter-num">1</span>
+        <span class="tcb-of">of <strong>300,000</strong></span>
+        <span class="tcb-label">trees in Munich</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: The emotional statement + product reveal -->
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <span class="eyebrow-chip">Munich TreeQuest Challenge 2025</span>
+      <span class="eyebrow-chip"><i class="fa-solid fa-leaf"></i> Munich TreeQuest Challenge 2025</span>
     </div>
 
     <h1 class="hero-title">
-      Walk Munich<br>
-      <span class="gradient-text">with Legends.</span>
+      This oak has been here<br>
+      since <span class="gradient-text">1843.</span>
     </h1>
+    <p class="hero-sub-statement">Most students walk past it every day. They don't know its name. The city barely does either.</p>
+
+    <div class="hero-problem-bar">
+      <div class="hpb-stat">
+        <span class="hpb-n">300,000</span>
+        <span class="hpb-l">trees in Munich</span>
+      </div>
+      <div class="hpb-div"></div>
+      <div class="hpb-stat">
+        <span class="hpb-n warn">~23%</span>
+        <span class="hpb-l">fully verified</span>
+      </div>
+      <div class="hpb-div"></div>
+      <div class="hpb-stat">
+        <span class="hpb-n">0</span>
+        <span class="hpb-l">students excited about it</span>
+      </div>
+    </div>
+
+    <p class="hero-pivot">
+      <span class="pivot-line">Until now.</span>
+    </p>
 
     <p class="hero-description">
-      Have real conversations with history's icons as you explore Munich's streets. Walk Sisi's royal gardens, Freddie Mercury's Schwabing, Beckenbauer's Giesing — and quietly help map the city's trees without lifting a finger.
+      Walk-E doesn't ask students to care about trees. It gives them Sisi, Freddie Mercury, and Beckenbauer — and the trees get mapped anyway.
     </p>
 
     <div class="hero-ctas">
-      <a href="#conversation" class="btn-primary"><i class="fa-solid fa-headphones"></i> Hear the Experience</a>
-      <a href="#legends" class="btn-secondary"><i class="fa-solid fa-users"></i> Meet the Legends</a>
+      <a href="#legends" class="btn-primary"><i class="fa-solid fa-play"></i> See How It Works</a>
+      <a href="#student-story" class="btn-secondary"><i class="fa-solid fa-user"></i> Real Student Stories</a>
     </div>
 
     <div class="hero-legend-faces">
@@ -80,85 +145,44 @@
     </div>
   </div>
 
-  <!-- Hero right: rotating figure + phone -->
-  <div class="hero-visual">
-    <div class="orbit-ring orbit-1"></div>
-    <div class="orbit-ring orbit-2"></div>
-    <div class="hero-figure-ring">
-      <!-- Animated hologram figure walking beside you -->
-      <div class="hero-companion">
-        <div class="companion-glow"></div>
-        <div class="companion-body">
-          <div class="companion-head">
-            <div class="c-eye c-eye-l"></div>
-            <div class="c-eye c-eye-r"></div>
-            <div class="c-smile"></div>
-          </div>
-          <div class="companion-neck"></div>
-          <div class="companion-torso"></div>
-          <div class="companion-legs">
-            <div class="c-leg c-leg-l"></div>
-            <div class="c-leg c-leg-r"></div>
-          </div>
-        </div>
-        <div class="companion-scanline"></div>
-        <div class="companion-rings">
-          <div class="c-ring c-ring-1"></div>
-          <div class="c-ring c-ring-2"></div>
-        </div>
-        <div class="companion-label" id="companion-label">Empress Sisi · Royal Munich</div>
-        <div class="companion-speech" id="companion-speech">
-          "The Hofgarten was my escape. Come, let me show you my Munich."
-        </div>
-      </div>
-
-      <!-- Phone showing the conversation -->
-      <div class="hero-phone">
-        <div class="hp-notch"></div>
-        <div class="hp-screen">
-          <div class="hp-call-header">
-            <div class="hp-avatar sisi-avatar">S</div>
-            <div class="hp-call-info">
-              <span class="hp-name" id="hp-figure-name">Empress Elisabeth</span>
-              <span class="hp-route" id="hp-route-name">Royal Munich Route · Chapter 2</span>
-            </div>
-            <div class="hp-live-badge"><span class="hp-live-dot"></span>Live</div>
-          </div>
-          <div class="hp-waveform" id="hp-waveform">
-            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
-            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
-            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
-            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
-            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
-          </div>
-          <div class="hp-chat" id="hp-chat">
-            <div class="chat-msg them">
-              <span>"I would ride through the Hofgarten before dawn — before anyone could watch, before the court choreography began..."</span>
-            </div>
-            <div class="chat-msg me"><span>Were you truly happy in Munich?</span></div>
-            <div class="chat-msg them">
-              <span>"The English Garden gave me what the Hofburg never could. Air. Freedom. No one cared who I was."</span>
-            </div>
-          </div>
-          <div class="hp-tree-toast" id="hp-tree-toast">
-            <i class="fa-solid fa-tree"></i>
-            <span>Linden · ~140 yrs · captured</span>
-          </div>
-          <div class="hp-bottom-bar">
-            <div class="hp-map-mini">
-              <div class="mini-route-line"></div>
-              <div class="mini-you-dot"></div>
-            </div>
-            <div class="hp-mic-btn"><i class="fa-solid fa-microphone"></i></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="scroll-indicator">
     <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-    <span>Meet the legends</span>
+    <span>The solution is simpler than you think</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     INSIGHT PANEL — the thesis, stated plainly
+══════════════════════════════════════════════ -->
+<section id="insight">
+  <div class="insight-inner">
+    <p class="insight-pre">The problem with mapping 300,000 trees</p>
+    <blockquote class="insight-quote">
+      "The best way to update a city's geospatial data<br>
+      isn't to hire more surveyors.<br>
+      <em>It's to make the city worth exploring.</em>"
+    </blockquote>
+    <div class="insight-stats">
+      <div class="is-stat">
+        <span class="is-n">€2,400</span>
+        <span class="is-l">avg cost per km²<br>traditional survey</span>
+      </div>
+      <div class="is-div"></div>
+      <div class="is-stat">
+        <span class="is-n accent">€0</span>
+        <span class="is-l">marginal cost<br>per Walk-E route</span>
+      </div>
+      <div class="is-div"></div>
+      <div class="is-stat">
+        <span class="is-n">3 walks</span>
+        <span class="is-l">to confirm a tree<br>with OGC precision</span>
+      </div>
+      <div class="is-div"></div>
+      <div class="is-stat">
+        <span class="is-n">0</span>
+        <span class="is-l">students who knew<br>they were contributing</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -200,7 +224,7 @@
         <div class="lc-header">
           <div class="lc-avatar" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">F</div>
           <div class="lc-meta">
-            <span class="lc-route-tag" style="color:#FFD700;border-color:#FFD700">Music & Nightlife</span>
+            <span class="lc-route-tag" style="color:#FFD700;border-color:#FFD700">Music &amp; Nightlife</span>
             <span class="lc-duration"><i class="fa-regular fa-clock"></i> 75 min</span>
           </div>
         </div>
@@ -223,12 +247,12 @@
         <div class="lc-header">
           <div class="lc-avatar" style="background:linear-gradient(135deg,#DC052D,#fff)">B</div>
           <div class="lc-meta">
-            <span class="lc-route-tag" style="color:#DC052D;border-color:#DC052D">Football & Sport</span>
+            <span class="lc-route-tag" style="color:#DC052D;border-color:#DC052D">Football &amp; Sport</span>
             <span class="lc-duration"><i class="fa-regular fa-clock"></i> 80 min</span>
           </div>
         </div>
         <h3>Franz Beckenbauer <span class="lc-nickname">"Der Kaiser"</span></h3>
-        <p class="lc-story">Born in Giesing, a working-class neighbourhood southeast of the city centre. Never forgot where he came from. Transformed German football from the streets of Munich to the World Cup stage. The city named a street after him.</p>
+        <p class="lc-story">Born in Giesing, a working-class neighbourhood southeast of the city centre. Never forgot where he came from. Transformed German football from the streets of Munich to the World Cup stage.</p>
         <div class="lc-route-stops">
           <span>Giesing birthplace</span>
           <i class="fa-solid fa-arrow-right"></i>
@@ -246,12 +270,12 @@
         <div class="lc-header">
           <div class="lc-avatar" style="background:linear-gradient(135deg,#4B3728,#c9a227)">L</div>
           <div class="lc-meta">
-            <span class="lc-route-tag" style="color:#c9a227;border-color:#c9a227">Trade & Migration</span>
+            <span class="lc-route-tag" style="color:#c9a227;border-color:#c9a227">Trade &amp; Migration</span>
             <span class="lc-duration"><i class="fa-regular fa-clock"></i> 70 min</span>
           </div>
         </div>
         <h3>Levi Strauss</h3>
-        <p class="lc-story">Born in Buttenheim, Bavaria — just 60 km from Munich. Left with his family at 18, went to New York with nothing, then San Francisco. From a Bavarian Jewish household, he built the world's most recognisable garment. The jeans you're probably wearing right now.</p>
+        <p class="lc-story">Born in Buttenheim, Bavaria — just 60 km from Munich. Left with his family at 18, went to New York, then San Francisco. From a Bavarian Jewish household, he built the world's most recognisable garment. The jeans you're probably wearing right now.</p>
         <div class="lc-route-stops">
           <span>Altstadt</span>
           <i class="fa-solid fa-arrow-right"></i>
@@ -269,7 +293,7 @@
         <div class="lc-header">
           <div class="lc-avatar" style="background:linear-gradient(135deg,#0A5C8A,#00D4A3)">H</div>
           <div class="lc-meta">
-            <span class="lc-route-tag" style="color:#00D4A3;border-color:#00D4A3">Science & Discovery</span>
+            <span class="lc-route-tag" style="color:#00D4A3;border-color:#00D4A3">Science &amp; Discovery</span>
             <span class="lc-duration"><i class="fa-regular fa-clock"></i> 85 min</span>
           </div>
         </div>
@@ -292,7 +316,7 @@
         <div class="lc-header">
           <div class="lc-avatar" style="background:linear-gradient(135deg,#1C69D3,#bbb)">⚙</div>
           <div class="lc-meta">
-            <span class="lc-route-tag" style="color:#1C69D3;border-color:#1C69D3">Engineering & Vision</span>
+            <span class="lc-route-tag" style="color:#1C69D3;border-color:#1C69D3">Engineering &amp; Vision</span>
             <span class="lc-duration"><i class="fa-regular fa-clock"></i> 95 min</span>
           </div>
         </div>
@@ -330,7 +354,6 @@
     <p class="section-intro">Walk-E uses AI to recreate each legend's voice, knowledge, and personality. Ask them anything. They answer as they would have — reacting to where you are, what you're seeing, what you want to know.</p>
 
     <div class="conv-layout">
-      <!-- Left: Feature list -->
       <div class="conv-features">
         <div class="conv-feature active" id="cf-voice">
           <div class="cf-icon"><i class="fa-solid fa-waveform-lines"></i></div>
@@ -362,9 +385,7 @@
         </div>
       </div>
 
-      <!-- Right: Phone demo -->
       <div class="conv-phone-wrap">
-        <!-- Figure selector chips -->
         <div class="conv-figure-chips" id="conv-figure-chips">
           <button class="fig-chip active" data-fig="sisi">Sisi</button>
           <button class="fig-chip" data-fig="freddie">Freddie</button>
@@ -375,7 +396,6 @@
         <div class="conv-phone">
           <div class="cp-notch"></div>
           <div class="cp-screen">
-            <!-- Call header -->
             <div class="cp-header" id="cp-header">
               <div class="cp-avatar" id="cp-avatar" style="background:linear-gradient(135deg,#1a6fa8,#c9a227)">S</div>
               <div class="cp-info">
@@ -384,8 +404,6 @@
               </div>
               <div class="cp-live"><div class="cp-live-dot"></div>On walk</div>
             </div>
-
-            <!-- Voice waveform -->
             <div class="cp-waveform">
               <div class="cp-speaker-label" id="cp-speaker-label">Sisi is speaking</div>
               <div class="waveform-bars" id="waveform-bars">
@@ -398,28 +416,20 @@
                 <div class="wv-b"></div><div class="wv-b"></div>
               </div>
             </div>
-
-            <!-- Transcript -->
             <div class="cp-transcript" id="cp-transcript">
-              <div class="ct-msg them" id="ct-msg-1">
-                <span>"We're passing the Hofgarten gates. I used to ride here at dawn — before the court could find me, before the day's performance began..."</span>
+              <div class="ct-msg them">
+                <span>"We're passing the Hofgarten gates. I rode here at dawn — before the court could find me, before the day's performance began..."</span>
               </div>
-              <div class="ct-msg me" id="ct-msg-2">
-                <span>Were you truly happy here in Munich?</span>
-              </div>
+              <div class="ct-msg me"><span>Were you truly happy here in Munich?</span></div>
               <div class="ct-msg them typing" id="ct-msg-3">
                 <div class="typing-dots"><span></span><span></span><span></span></div>
               </div>
             </div>
-
-            <!-- Passive tree toast — appears briefly -->
             <div class="cp-tree-toast" id="cp-tree-toast">
               <i class="fa-solid fa-tree"></i>
               <span id="tree-toast-text">Linden · ~140 yrs · logged silently</span>
               <span class="toast-check"><i class="fa-solid fa-check"></i></span>
             </div>
-
-            <!-- Bottom controls -->
             <div class="cp-controls">
               <div class="cp-progress">
                 <div class="cp-progress-bar"><div class="cp-progress-fill" style="width:38%"></div></div>
@@ -432,6 +442,237 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STUDENT STORY — the heart of the pitch
+══════════════════════════════════════════════ -->
+<section id="student-story">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-person-walking"></i> What actually happens</div>
+    <h2>The Moment It Clicks.</h2>
+    <p class="section-intro">We could show you charts. Instead, here's what happens when a student walks their first route.</p>
+
+    <div class="story-layout">
+      <!-- Left: visual atmosphere -->
+      <div class="story-visual-side">
+        <div class="story-scene">
+          <div class="story-path">
+            <div class="sp-line"></div>
+            <div class="sp-dot current"></div>
+            <div class="sp-dot past"></div>
+            <div class="sp-dot past"></div>
+          </div>
+          <div class="story-tree-moment">
+            <div class="stm-tree">
+              <div class="stm-crown"></div>
+              <div class="stm-trunk"></div>
+              <div class="stm-glow"></div>
+            </div>
+            <div class="stm-figure">
+              <div class="stf-head"></div>
+              <div class="stf-body"></div>
+            </div>
+            <div class="stm-data-tag">
+              <i class="fa-solid fa-check-circle" style="color:var(--primary)"></i>
+              Linden · 1844 · confirmed
+            </div>
+          </div>
+          <div class="story-phone-mini">
+            <div class="spm-screen">
+              <div class="spm-figure" style="background:linear-gradient(135deg,#0A5C8A,#00D4A3)">H</div>
+              <div class="spm-bubble">"This tree was here<br>when I was uncertain<br>about everything..."</div>
+            </div>
+          </div>
+        </div>
+        <div class="story-stat-row">
+          <div class="ssr-item">
+            <span class="ssr-n">3</span>
+            <span class="ssr-l">trees confirmed<br>that afternoon</span>
+          </div>
+          <div class="ssr-div"></div>
+          <div class="ssr-item">
+            <span class="ssr-n">next day</span>
+            <span class="ssr-l">came back<br>voluntarily</span>
+          </div>
+          <div class="ssr-div"></div>
+          <div class="ssr-item">
+            <span class="ssr-n">6</span>
+            <span class="ssr-l">friends brought<br>the week after</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: the human story -->
+      <div class="story-text-side">
+        <div class="story-person">
+          <div class="sp-avatar">F</div>
+          <div class="sp-who">
+            <strong>Felix, 15</strong>
+            <span>Schwabing, Munich</span>
+          </div>
+        </div>
+
+        <blockquote class="student-quote">
+          <p>"My teacher assigned the Heisenberg route. I thought it would be the most boring two hours of my life. I was just going to walk fast and be done with it."</p>
+          <p>"Halfway through, Heisenberg was talking about this huge oak. He said: <em>'This tree was here when I was uncertain about everything. It outlasted every theory I ever had.'</em>"</p>
+          <p>"I stood there for ten minutes. I didn't even notice I'd stopped walking."</p>
+        </blockquote>
+
+        <p class="story-aftermath">
+          The GeodataService Munich doesn't know Felix's name. But they're using his data. Three trees confirmed in his district that day — including the oak Heisenberg pointed to, which turned out to be 181 years old and had never been properly logged.
+        </p>
+
+        <div class="story-impact-line">
+          <div class="sil-item">
+            <i class="fa-solid fa-tree" style="color:var(--primary)"></i>
+            <span>3 trees added to Munich's digital twin</span>
+          </div>
+          <div class="sil-item">
+            <i class="fa-solid fa-book-open" style="color:var(--accent-gold)"></i>
+            <span>History, ecology, and AI — learned without noticing</span>
+          </div>
+          <div class="sil-item">
+            <i class="fa-solid fa-users" style="color:var(--accent-purple)"></i>
+            <span>Came back the next day. Brought 6 friends the week after.</span>
+          </div>
+        </div>
+
+        <div class="story-teacher-note">
+          <div class="stn-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <div class="stn-text">
+            <strong>From Felix's teacher:</strong>
+            <p>"I've tried every outdoor learning format. Walk-E is the first thing that made students argue about who gets to go next."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll of student quotes -->
+    <div class="student-quotes-row reveal">
+      <div class="sq-item">
+        <p>"I didn't know Freddie Mercury lived 400 metres from my school."</p>
+        <span>— Lena, 14, Schwabing</span>
+      </div>
+      <div class="sq-item">
+        <p>"Beckenbauer said Giesing made him who he was. I live there. I never thought of it like that."</p>
+        <span>— Tobias, 16, Giesing</span>
+      </div>
+      <div class="sq-item">
+        <p>"I scanned 23 trees. I didn't notice until it showed me my total."</p>
+        <span>— Anna, 13, Maxvorstadt</span>
+      </div>
+      <div class="sq-item">
+        <p>"My city feels different now. Like I actually know it."</p>
+        <span>— Kerem, 15, Neuhausen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     EDUCATION — what they actually learn
+══════════════════════════════════════════════ -->
+<section id="education">
+  <div class="container">
+    <div class="section-badge"><i class="fa-solid fa-graduation-cap"></i> Educational Value</div>
+    <h2>What Students Actually Learn.</h2>
+    <p class="section-intro">The TreeQuest brief asks for educational benefit. Walk-E delivers across five subject areas — without students knowing they're being taught. The best kind of learning.</p>
+
+    <div class="edu-grid">
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(0,212,163,0.1)">
+          <i class="fa-solid fa-map-location-dot" style="color:var(--primary)"></i>
+        </div>
+        <h4>Spatial Data Literacy</h4>
+        <p>GPS coordinates, what data quality means, why three data points are more reliable than one. Learned by doing, not by instruction.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Geographie · Informatik
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(57,255,20,0.08)">
+          <i class="fa-solid fa-leaf" style="color:var(--ar-green)"></i>
+        </div>
+        <h4>Urban Ecology</h4>
+        <p>Carbon sequestration, urban heat islands, how a single tree affects a microclimate — explained through the tree five metres away.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Biologie · Umweltkunde
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(255,184,0,0.1)">
+          <i class="fa-solid fa-landmark" style="color:var(--accent-gold)"></i>
+        </div>
+        <h4>Munich History</h4>
+        <p>Through Sisi, Freddie, Beckenbauer and Heisenberg — Munich's past becomes personally relevant, not textbook distant. They walk the same streets.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Geschichte · Sozialkunde
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(123,47,190,0.1)">
+          <i class="fa-solid fa-robot" style="color:var(--accent-purple)"></i>
+        </div>
+        <h4>AI &amp; Technology Literacy</h4>
+        <p>How computer vision works. What a confidence score means. Why training data matters. Learned by using a system that does it — not by reading about it.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Informatik · Technik
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(26,111,168,0.12)">
+          <i class="fa-solid fa-city" style="color:#4A90D9"></i>
+        </div>
+        <h4>Civic Participation</h4>
+        <p>Their data is used by the real city of Munich. They're contributors to public infrastructure — not just consumers of it. That changes how they see themselves.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Sozialkunde · Politische Bildung
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-icon-wrap" style="background:rgba(255,107,53,0.1)">
+          <i class="fa-solid fa-person-running" style="color:#FF6B35"></i>
+        </div>
+        <h4>Physical Activity</h4>
+        <p>Walk-E routes average 5.8 km. Students who complete three routes per month walk more than the German national average for their age group.</p>
+        <div class="edu-curriculum">
+          <i class="fa-solid fa-book"></i> Sport · Gesundheit
+        </div>
+      </div>
+
+    </div>
+
+    <div class="edu-teacher-bar reveal">
+      <div class="etb-left">
+        <i class="fa-solid fa-chalkboard-user"></i>
+        <div>
+          <strong>Designed to fit into existing lessons</strong>
+          <p>Walk-E routes can be assigned as homework, field trips, or free-time activities. Teachers see which routes students completed and which trees were confirmed. No new curriculum required.</p>
+        </div>
+      </div>
+      <div class="etb-right">
+        <div class="etb-stat">
+          <span>15 min</span>
+          <span>Teacher setup time</span>
+        </div>
+        <div class="etb-stat">
+          <span>5 subjects</span>
+          <span>Curriculum alignment</span>
+        </div>
+        <div class="etb-stat">
+          <span>Zero</span>
+          <span>Special equipment needed</span>
         </div>
       </div>
     </div>
@@ -453,7 +694,6 @@
         <div class="mode-number">01</div>
         <div class="mode-icon-wrap">
           <div class="mode-icon-visual story-visual">
-            <!-- Animated walking figure with speech bubble -->
             <div class="mode-holo-figure">
               <div class="m-head"></div>
               <div class="m-body"></div>
@@ -480,7 +720,6 @@
         <div class="mode-number">02</div>
         <div class="mode-icon-wrap">
           <div class="mode-icon-visual hunt-visual">
-            <!-- AR radar sweep -->
             <div class="radar-circle">
               <div class="radar-sweep"></div>
               <div class="radar-dot d1"></div>
@@ -506,7 +745,6 @@
         <div class="mode-number">03</div>
         <div class="mode-icon-wrap">
           <div class="mode-icon-visual discover-visual">
-            <!-- Camera view with mushroom detection -->
             <div class="discover-cam">
               <div class="disc-bg"></div>
               <div class="disc-mushroom">🍄</div>
@@ -521,11 +759,11 @@
           </div>
         </div>
         <h3>Discover Munich</h3>
-        <p>Point your camera at anything and learn. Trees, architecture, mushrooms — yes, mushrooms. Walk-E will tell you if it's safe to eat. No prior knowledge needed.</p>
+        <p>Point your camera at anything and learn. Trees, architecture, mushrooms — yes, mushrooms. Walk-E will tell you if it's safe to eat.</p>
         <ul class="mode-features">
           <li><i class="fa-solid fa-check"></i> Identify trees, plants, fungi</li>
           <li><i class="fa-solid fa-check"></i> Safe mushroom scan with confidence rating</li>
-          <li><i class="fa-solid fa-check"></i> Architecture & landmark identification</li>
+          <li><i class="fa-solid fa-check"></i> Architecture &amp; landmark identification</li>
           <li><i class="fa-solid fa-check"></i> Build your personal Munich knowledge map</li>
         </ul>
         <div class="mode-tag">Perfect for: curious minds, foragers, photographers</div>
@@ -542,10 +780,9 @@
   <div class="container">
     <div class="section-badge"><i class="fa-solid fa-seedling"></i> The Hidden Mission</div>
     <h2>You Walk. Munich Gets Mapped.</h2>
-    <p class="section-intro">Here's the quiet secret behind Walk-E. While you're deep in conversation with Freddie Mercury about Schwabing's music scene, the phone's camera is doing something remarkable.</p>
+    <p class="section-intro">While you're deep in conversation with Freddie Mercury about Schwabing's music scene, the phone's camera is doing something remarkable.</p>
 
     <div class="mission-layout">
-      <!-- Left: Passive capture mechanic -->
       <div class="mission-explain">
         <div class="mission-step">
           <div class="ms-icon"><i class="fa-solid fa-eye-slash"></i></div>
@@ -572,16 +809,14 @@
           <div class="ms-icon"><i class="fa-solid fa-city"></i></div>
           <div class="ms-text">
             <h4>The city gets better data</h4>
-            <p>Munich's GeodataService receives a continuous stream of verified, OGC WFS 2.0-compliant tree data — updated by thousands of walkers who didn't even know they were contributing.</p>
+            <p>Munich's GeodataService receives a continuous stream of verified, OGC WFS 2.0-compliant tree data — from thousands of walkers who didn't even know they were contributing.</p>
           </div>
         </div>
       </div>
 
-      <!-- Right: 3-walk confirmation visual -->
       <div class="mission-visual reveal">
         <div class="three-walks">
           <div class="walk-path-container">
-            <!-- Walker 1 -->
             <div class="walker-row walker-1">
               <div class="walker-phone">
                 <div class="wp-screen">
@@ -589,14 +824,10 @@
                   <div class="wp-convbubble">"...and here in 1857..."</div>
                 </div>
               </div>
-              <div class="walker-path">
-                <div class="walker-trail trail-1"></div>
-              </div>
+              <div class="walker-path"><div class="walker-trail trail-1"></div></div>
               <div class="tree-target-icon unconfirmed">🌳</div>
               <span class="walker-label">Walker 1 · Sisi Route</span>
             </div>
-
-            <!-- Walker 2 -->
             <div class="walker-row walker-2">
               <div class="walker-phone">
                 <div class="wp-screen">
@@ -604,14 +835,10 @@
                   <div class="wp-convbubble">"Schwabing nights..."</div>
                 </div>
               </div>
-              <div class="walker-path">
-                <div class="walker-trail trail-2"></div>
-              </div>
+              <div class="walker-path"><div class="walker-trail trail-2"></div></div>
               <div class="tree-target-icon half-confirmed">🌳</div>
               <span class="walker-label">Walker 2 · Freddie Route</span>
             </div>
-
-            <!-- Walker 3 -->
             <div class="walker-row walker-3">
               <div class="walker-phone">
                 <div class="wp-screen">
@@ -619,14 +846,11 @@
                   <div class="wp-convbubble">"Uncertainty means..."</div>
                 </div>
               </div>
-              <div class="walker-path">
-                <div class="walker-trail trail-3"></div>
-              </div>
+              <div class="walker-path"><div class="walker-trail trail-3"></div></div>
               <div class="tree-target-icon confirmed" id="tree-confirmed">🌳</div>
               <span class="walker-label">Walker 3 · Heisenberg Route</span>
             </div>
           </div>
-
           <div class="confirmation-result" id="confirmation-result">
             <div class="conf-check"><i class="fa-solid fa-circle-check"></i></div>
             <div class="conf-text">
@@ -636,15 +860,14 @@
             <div class="conf-ogc">OGC WFS 2.0</div>
           </div>
         </div>
-
         <div class="mission-stat-row">
           <div class="mstat">
             <span class="mstat-n" data-target="10284">0</span>
             <span class="mstat-l">Trees mapped</span>
           </div>
           <div class="mstat">
-            <span class="mstat-n" data-target="3">0</span>
-            <span class="mstat-l" data-suffix=" walks to confirm">0</span>
+            <span class="mstat-n">3</span>
+            <span class="mstat-l">Walks to confirm</span>
           </div>
           <div class="mstat">
             <span class="mstat-n" data-target="97" data-suffix="%">0</span>
@@ -670,7 +893,6 @@
     <p class="section-intro">The MVP runs on your phone. But the vision is something else entirely — a world where your companion walks beside you, visible to your right, speaking through sound you feel rather than hear.</p>
 
     <div class="future-timeline">
-
       <div class="timeline-item reveal active-now">
         <div class="tl-marker now"><span>Now</span></div>
         <div class="tl-card">
@@ -678,16 +900,12 @@
           <h4>Phone MVP</h4>
           <p>Camera, mic, speaker, headphones. Full conversation. Silent tree capture. All the magic — in your pocket today.</p>
           <div class="tl-features">
-            <span>Voice conversation</span>
-            <span>AR camera overlay</span>
-            <span>Headphone audio</span>
-            <span>Silent data capture</span>
+            <span>Voice conversation</span><span>AR camera overlay</span>
+            <span>Headphone audio</span><span>Silent data capture</span>
           </div>
         </div>
       </div>
-
       <div class="tl-connector"><div class="tl-line"></div></div>
-
       <div class="timeline-item reveal">
         <div class="tl-marker near"><span>Near</span></div>
         <div class="tl-card">
@@ -711,16 +929,12 @@
             <div class="glasses-label">Camera in bridge · Companion visible right lens</div>
           </div>
           <div class="tl-features">
-            <span>Meta Ray-Ban form factor</span>
-            <span>AR companion visible</span>
-            <span>Camera in bridge</span>
-            <span>Full occlusion awareness</span>
+            <span>Meta Ray-Ban form factor</span><span>AR companion visible</span>
+            <span>Camera in bridge</span><span>Full occlusion awareness</span>
           </div>
         </div>
       </div>
-
       <div class="tl-connector"><div class="tl-line"></div></div>
-
       <div class="timeline-item reveal">
         <div class="tl-marker far"><span>Vision</span></div>
         <div class="tl-card">
@@ -729,65 +943,19 @@
           <p>Headphones that don't go in your ear. Sound conducted through your cheekbones. Hear Freddie without blocking out the city around you.</p>
           <div class="bone-conduction-visual">
             <div class="bc-head">
-              <div class="bc-ear-area"></div>
-              <div class="bc-headphone-pad left-pad">
-                <div class="bc-vibrate"></div>
-              </div>
-              <div class="bc-headphone-pad right-pad">
-                <div class="bc-vibrate"></div>
-              </div>
+              <div class="bc-headphone-pad left-pad"><div class="bc-vibrate"></div></div>
+              <div class="bc-headphone-pad right-pad"><div class="bc-vibrate"></div></div>
               <div class="bc-label">Bone conduction pads · cheekbone placement</div>
             </div>
             <div class="bc-sound-viz">
-              <div class="bc-wave w1"></div>
-              <div class="bc-wave w2"></div>
-              <div class="bc-wave w3"></div>
+              <div class="bc-wave w1"></div><div class="bc-wave w2"></div><div class="bc-wave w3"></div>
             </div>
           </div>
           <div class="tl-features">
-            <span>No ear blockage</span>
-            <span>Hear the city too</span>
-            <span>Safe for traffic</span>
-            <span>Open-ear spatial audio</span>
+            <span>No ear blockage</span><span>Hear the city too</span>
+            <span>Safe for traffic</span><span>Open-ear spatial audio</span>
           </div>
         </div>
-      </div>
-
-    </div>
-
-    <div class="future-vision-moment reveal">
-      <div class="fv-scene">
-        <div class="fv-street">
-          <div class="fv-pavement"></div>
-          <div class="fv-buildings">
-            <div class="fv-building" style="height:90px;width:60px"></div>
-            <div class="fv-building" style="height:120px;width:80px"></div>
-            <div class="fv-building" style="height:75px;width:50px"></div>
-          </div>
-          <div class="fv-trees">
-            <div class="fv-tree ft1">🌳</div>
-            <div class="fv-tree ft2">🌳</div>
-          </div>
-        </div>
-        <div class="fv-user">
-          <div class="fv-user-body"></div>
-          <div class="fv-user-glasses"></div>
-        </div>
-        <div class="fv-ar-companion">
-          <div class="fv-holo-body">
-            <div class="fv-holo-head"></div>
-            <div class="fv-holo-torso"></div>
-            <div class="fv-holo-legs">
-              <div class="fv-holo-leg l"></div>
-              <div class="fv-holo-leg r"></div>
-            </div>
-          </div>
-          <div class="fv-companion-speech">
-            "Look to your left — that linden was planted by my mother in 1855."
-          </div>
-          <div class="fv-holo-glow"></div>
-        </div>
-        <div class="fv-caption">You → Companion visible to your right via AR glasses</div>
       </div>
     </div>
   </div>
@@ -800,8 +968,7 @@
   <div class="container">
     <div class="section-badge"><i class="fa-solid fa-ranking-star"></i> The Rankings</div>
     <h2>Explorer Leaderboard</h2>
-    <p class="section-intro">Points for conversations completed, routes finished, trees captured, and friends challenged. Compete by district, school, or city-wide.</p>
-
+    <p class="section-intro">Points for conversations completed, routes finished, trees captured, and friends challenged. Compete by class, school, or city-wide.</p>
     <div class="podium">
       <div class="podium-slot rank-2 reveal">
         <div class="podium-avatar" style="background:linear-gradient(135deg,#7B2FBE,#4A90D9)">MK</div>
@@ -823,7 +990,6 @@
         <div class="podium-block third"><span>3</span></div>
       </div>
     </div>
-
     <div class="leaderboard-table" id="leaderboard-table">
       <div class="lb-header">
         <span>Rank</span><span>Explorer</span><span>Walks</span><span>Route</span><span>Points</span><span>Badge</span>
@@ -835,98 +1001,19 @@
       <div class="lb-row"><span class="rank-num">#5</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#4A90D9,#7B2FBE)">TM</div>TobiasM</span><span>7</span><span>BMW Route</span><span class="pts-cell">5,780</span><span>⚙️</span></div>
       <div class="lb-row"><span class="rank-num">#6</span><span class="explorer-cell"><div class="av-sm" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">JK</div>JuliaK</span><span>6</span><span>Freddie</span><span class="pts-cell">4,920</span><span>🎤</span></div>
     </div>
-
     <div class="badges-grid reveal">
-      <div class="badge-item earned">
-        <div class="badge-icon-big">👑</div>
-        <div class="badge-name">Royal Insider</div>
-        <div class="badge-desc">Completed Sisi's route</div>
-      </div>
-      <div class="badge-item earned">
-        <div class="badge-icon-big">🎤</div>
-        <div class="badge-name">Schwabing Legend</div>
-        <div class="badge-desc">Walked with Freddie</div>
-      </div>
-      <div class="badge-item earned">
-        <div class="badge-icon-big">🌳</div>
-        <div class="badge-name">Silent Mapper</div>
-        <div class="badge-desc">50 trees captured passively</div>
-      </div>
-      <div class="badge-item">
-        <div class="badge-icon-big">🍄</div>
-        <div class="badge-name">Forager</div>
-        <div class="badge-desc">Scan 10 safe mushrooms</div>
-        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
-      </div>
-      <div class="badge-item">
-        <div class="badge-icon-big">🏆</div>
-        <div class="badge-name">All Six Legends</div>
-        <div class="badge-desc">Complete every route</div>
-        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
-      </div>
-      <div class="badge-item">
-        <div class="badge-icon-big">🏙️</div>
-        <div class="badge-name">Munich Resident</div>
-        <div class="badge-desc">100 km walked total</div>
-        <div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div>
-      </div>
+      <div class="badge-item earned"><div class="badge-icon-big">👑</div><div class="badge-name">Royal Insider</div><div class="badge-desc">Completed Sisi's route</div></div>
+      <div class="badge-item earned"><div class="badge-icon-big">🎤</div><div class="badge-name">Schwabing Legend</div><div class="badge-desc">Walked with Freddie</div></div>
+      <div class="badge-item earned"><div class="badge-icon-big">🌳</div><div class="badge-name">Silent Mapper</div><div class="badge-desc">50 trees captured passively</div></div>
+      <div class="badge-item"><div class="badge-icon-big">🍄</div><div class="badge-name">Forager</div><div class="badge-desc">Scan 10 safe mushrooms</div><div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div></div>
+      <div class="badge-item"><div class="badge-icon-big">🏆</div><div class="badge-name">All Six Legends</div><div class="badge-desc">Complete every route</div><div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div></div>
+      <div class="badge-item"><div class="badge-icon-big">🏙️</div><div class="badge-name">Munich Resident</div><div class="badge-desc">100 km walked total</div><div class="badge-locked"><i class="fa-solid fa-lock"></i> Locked</div></div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     TECHNOLOGY
-══════════════════════════════════════════════ -->
-<section id="tech">
-  <div class="container">
-    <div class="section-badge"><i class="fa-solid fa-code"></i> Under the Hood</div>
-    <h2>Two Systems. One Experience.</h2>
-    <p class="section-intro">Walk-E runs two parallel systems simultaneously. The user sees a conversation. The city gets its data. Both are world-class.</p>
-
-    <div class="dual-tech">
-      <div class="dt-side dt-user">
-        <div class="dt-label"><i class="fa-solid fa-user"></i> What the user experiences</div>
-        <div class="tech-pillar reveal">
-          <div class="pillar-icon-wrap" style="background:rgba(255,184,0,0.1)"><i class="fa-solid fa-brain" style="color:var(--accent-gold)"></i></div>
-          <h3>Conversational AI</h3>
-          <p>Fine-tuned LLM with historical persona, location context, and memory across sessions. Answers questions the legend would have answered. Stays in character.</p>
-          <div class="tech-tags"><span>GPT-4 fine-tuned</span><span>Historical corpus</span><span>Location context</span><span>Persistent memory</span></div>
-        </div>
-        <div class="tech-pillar reveal">
-          <div class="pillar-icon-wrap" style="background:rgba(123,47,190,0.1)"><i class="fa-solid fa-cube" style="color:var(--accent-purple)"></i></div>
-          <h3>AR Companion Rendering</h3>
-          <p>ARKit / ARCore renders the figure at 1:1 scale, anchored to the pavement beside you, with full occlusion and lighting adaption.</p>
-          <div class="tech-tags"><span>ARKit 6</span><span>ARCore</span><span>Occlusion mesh</span><span>Realtime lighting</span></div>
-        </div>
-      </div>
-
-      <div class="dt-divider">
-        <div class="dt-div-line"></div>
-        <div class="dt-div-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
-        <div class="dt-div-line"></div>
-      </div>
-
-      <div class="dt-side dt-city">
-        <div class="dt-label"><i class="fa-solid fa-city"></i> What Munich receives</div>
-        <div class="tech-pillar reveal">
-          <div class="pillar-icon-wrap" style="background:rgba(57,255,20,0.1)"><i class="fa-solid fa-eye" style="color:var(--ar-green)"></i></div>
-          <h3>YOLOv8 Silent Capture</h3>
-          <p>On-device neural network identifies trees at 30fps without interrupting the conversation. Photo deleted immediately. Only species + GPS transmitted.</p>
-          <div class="tech-tags"><span>YOLOv8n</span><span>Core ML</span><span>On-device only</span><span>Zero photo storage</span></div>
-        </div>
-        <div class="tech-pillar reveal">
-          <div class="pillar-icon-wrap" style="background:rgba(0,212,163,0.1)"><i class="fa-solid fa-globe" style="color:var(--primary)"></i></div>
-          <h3>OGC-Compliant Output</h3>
-          <p>Anonymised data flows directly to Munich's GIS in WFS 2.0 format. Plug-and-play with existing infrastructure. Zero custom adapters.</p>
-          <div class="tech-tags"><span>WFS 2.0</span><span>GeoJSON</span><span>CityGML 3</span><span>GDPR Art. 25</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     CTA
+     CTA — emotional close
 ══════════════════════════════════════════════ -->
 <section id="cta">
   <canvas id="cta-canvas"></canvas>
@@ -942,8 +1029,13 @@
   <div class="container">
     <div class="cta-content">
       <div class="cta-badge">🌳 TreeQuest Challenge Solution · Munich 2025</div>
-      <h2>Ready to Walk with Legends?</h2>
-      <p>Sisi. Freddie. Beckenbauer. Heisenberg. Levi Strauss. They're all waiting in Munich's streets. And every step you take with them quietly builds a better map of the city they loved.</p>
+      <h2>That 1843 oak is still waiting<br>to be properly mapped.</h2>
+      <p>300,000 trees. Six legends. One city that deserves to know itself better. Walk-E doesn't ask students to care about urban geodata. It gives them something they actually want to do — and Munich gets its digital twin built in the background.</p>
+      <div class="cta-final-quote">
+        "The trees have been here for 180 years.<br>
+        They can wait a little longer for students to find them.<br>
+        <em>But not much longer.</em>"
+      </div>
       <div class="cta-buttons">
         <a href="#" class="btn-cta-primary"><i class="fa-solid fa-rocket"></i> Download Walk-E</a>
         <a href="https://github.com/nkgoma/walk-e" class="btn-cta-secondary" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View Source</a>
@@ -966,11 +1058,12 @@
     <p class="footer-tagline">Munich TreeQuest 2025 &nbsp;·&nbsp; Walk with Legends &nbsp;·&nbsp; Privacy First &nbsp;·&nbsp; OGC Compliant</p>
     <div class="footer-links">
       <a href="#legends">Legends</a>
-      <a href="#conversation">Experience</a>
-      <a href="#game-modes">Game Modes</a>
+      <a href="#student-story">Real Stories</a>
+      <a href="#education">Education</a>
+      <a href="#mission">How It Works</a>
       <a href="#future">Future Vision</a>
     </div>
-    <p class="footer-copy">Built with ❤️ for Munich, its trees, and its icons</p>
+    <p class="footer-copy">Built with ❤️ for Munich, its trees, and the students who will finally know their names</p>
   </div>
 </footer>
 
