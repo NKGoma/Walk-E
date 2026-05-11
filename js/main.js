@@ -1,60 +1,51 @@
 'use strict';
 
 // ═══════════════════════════════════════════════
-// PARTICLE SYSTEM — Hero background
+// PARTICLE SYSTEM
 // ═══════════════════════════════════════════════
 class ParticleSystem {
-  constructor(canvasId) {
+  constructor(canvasId, sectionId) {
     this.canvas = document.getElementById(canvasId);
+    this.section = sectionId ? document.getElementById(sectionId) : null;
     if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
     this.particles = [];
-    this.running = true;
     this.resize();
     this.init();
     window.addEventListener('resize', () => this.resize());
     this.animate();
   }
-
   resize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    const src = this.section || this.canvas.parentElement;
+    this.canvas.width = src ? src.offsetWidth : window.innerWidth;
+    this.canvas.height = src ? src.offsetHeight : window.innerHeight;
   }
-
   init() {
-    this.particles = [];
-    const count = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 18000));
-    for (let i = 0; i < count; i++) {
-      this.particles.push(this.makeParticle());
-    }
+    const count = Math.min(80, Math.floor((this.canvas.width * this.canvas.height) / 18000));
+    for (let i = 0; i < count; i++) this.particles.push(this.make());
   }
-
-  makeParticle() {
-    const isGreen = Math.random() > 0.55;
+  make() {
     return {
       x: Math.random() * this.canvas.width,
       y: Math.random() * this.canvas.height,
-      size: Math.random() * 2.5 + 0.8,
-      speedX: (Math.random() - 0.5) * 0.35,
-      speedY: (Math.random() - 0.5) * 0.35 - 0.1,
-      opacity: Math.random() * 0.45 + 0.1,
-      color: isGreen ? '#00D4A3' : '#7B2FBE',
+      size: Math.random() * 2.2 + 0.6,
+      sx: (Math.random() - 0.5) * 0.35,
+      sy: (Math.random() - 0.5) * 0.35 - 0.08,
+      opacity: Math.random() * 0.4 + 0.08,
+      color: Math.random() > 0.55 ? '#00D4A3' : '#7B2FBE',
     };
   }
-
   animate() {
-    if (!this.running) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (const p of this.particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
+      p.x += p.sx; p.y += p.sy;
       if (p.x < 0) p.x = this.canvas.width;
       if (p.x > this.canvas.width) p.x = 0;
       if (p.y < 0) p.y = this.canvas.height;
       if (p.y > this.canvas.height) p.y = 0;
+      const alpha = Math.floor(p.opacity * 255).toString(16).padStart(2, '0');
       this.ctx.beginPath();
       this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      const alpha = Math.floor(p.opacity * 255).toString(16).padStart(2, '0');
       this.ctx.fillStyle = p.color + alpha;
       this.ctx.fill();
     }
@@ -63,447 +54,376 @@ class ParticleSystem {
 }
 
 // ═══════════════════════════════════════════════
-// CTA PARTICLE SYSTEM — simpler version
+// NAVBAR
 // ═══════════════════════════════════════════════
-class CTAParticles {
-  constructor() {
-    this.canvas = document.getElementById('cta-canvas');
-    if (!this.canvas) return;
-    this.ctx = this.canvas.getContext('2d');
-    this.particles = [];
-    this.resize();
-    this.init();
-    window.addEventListener('resize', () => this.resize());
-    this.animate();
-  }
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+  const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 80);
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
 
-  resize() {
-    const section = document.getElementById('cta');
-    if (!section) return;
-    this.canvas.width = section.offsetWidth;
-    this.canvas.height = section.offsetHeight;
-  }
+function initMobileMenu() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+}
 
-  init() {
-    for (let i = 0; i < 40; i++) {
-      this.particles.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        size: Math.random() * 1.5 + 0.5,
-        speedY: -(Math.random() * 0.5 + 0.1),
-        opacity: Math.random() * 0.3 + 0.05,
-      });
-    }
-  }
-
-  animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for (const p of this.particles) {
-      p.y += p.speedY;
-      if (p.y < 0) p.y = this.canvas.height;
-      const alpha = Math.floor(p.opacity * 255).toString(16).padStart(2, '0');
-      this.ctx.beginPath();
-      this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      this.ctx.fillStyle = '#00D4A3' + alpha;
-      this.ctx.fill();
-    }
-    requestAnimationFrame(() => this.animate());
-  }
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const el = document.querySelector(href);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
 }
 
 // ═══════════════════════════════════════════════
-// SCROLL REVEAL
+// SCROLL REVEAL + COUNTERS
 // ═══════════════════════════════════════════════
 function initReveal() {
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// ═══════════════════════════════════════════════
-// COUNTER ANIMATION
-// ═══════════════════════════════════════════════
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10);
   const suffix = el.dataset.suffix || '';
   const duration = 1800;
   const start = performance.now();
   let done = false;
-
-  function update(now) {
+  function tick(now) {
     if (done) return;
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(eased * target).toLocaleString('de-DE') + suffix;
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      el.textContent = target.toLocaleString('de-DE') + suffix;
-      done = true;
-    }
+    if (p < 1) requestAnimationFrame(tick);
+    else { el.textContent = target.toLocaleString('de-DE') + suffix; done = true; }
   }
-  requestAnimationFrame(update);
+  requestAnimationFrame(tick);
 }
 
 function initCounters() {
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('[data-target]').forEach(animateCounter);
-        observer.unobserve(entry.target);
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(animateCounter);
+        observer.unobserve(e.target);
       }
     });
   }, { threshold: 0.3 });
-
-  document.querySelectorAll('#hero, #impact').forEach(section => {
-    if (section) observer.observe(section);
+  document.querySelectorAll('.mission-stat-row, .hero-stats').forEach(el => {
+    if (el) observer.observe(el);
   });
 }
 
 // ═══════════════════════════════════════════════
-// NAVBAR SCROLL
+// LEGEND CARDS — hover border color
 // ═══════════════════════════════════════════════
-function initNavbar() {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 80);
-  }, { passive: true });
-}
-
-// ═══════════════════════════════════════════════
-// MOBILE MENU
-// ═══════════════════════════════════════════════
-function initMobileMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  if (!hamburger || !menu) return;
-
-  hamburger.addEventListener('click', () => {
-    menu.classList.toggle('open');
-  });
-  menu.addEventListener('click', e => {
-    if (e.target.tagName === 'A') menu.classList.remove('open');
+function initLegendCards() {
+  document.querySelectorAll('.legend-card').forEach(card => {
+    const color = card.dataset.color || '#00D4A3';
+    card.style.setProperty('--card-color', color);
   });
 }
 
 // ═══════════════════════════════════════════════
-// SMOOTH SCROLL
+// HERO COMPANION — rotate figure identity
 // ═══════════════════════════════════════════════
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const href = link.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-}
+const COMPANIONS = [
+  {
+    label: 'Empress Sisi · Royal Munich',
+    speech: '"The Hofgarten was my escape. Come, let me show you my Munich."',
+    headBg: 'linear-gradient(135deg,#1a6fa8,#c9a227)',
+    torsoBg: 'linear-gradient(to bottom,#1a6fa8,rgba(0,212,163,0.7))',
+  },
+  {
+    label: 'Freddie Mercury · Schwabing',
+    speech: '"Munich understood me when London didn\'t. Let me show you why."',
+    headBg: 'linear-gradient(135deg,#8B1A8B,#FFD700)',
+    torsoBg: 'linear-gradient(to bottom,#8B1A8B,rgba(255,215,0,0.5))',
+  },
+  {
+    label: 'Franz Beckenbauer · Giesing',
+    speech: '"These streets built me. Every step here is part of my story."',
+    headBg: 'linear-gradient(135deg,#DC052D,#fff)',
+    torsoBg: 'linear-gradient(to bottom,#DC052D,rgba(255,255,255,0.4))',
+  },
+  {
+    label: 'Werner Heisenberg · LMU',
+    speech: '"The more precisely you observe a tree, the more it reveals its uncertainty."',
+    headBg: 'linear-gradient(135deg,#0A5C8A,#00D4A3)',
+    torsoBg: 'linear-gradient(to bottom,#0A5C8A,rgba(0,212,163,0.7))',
+  },
+];
 
-// ═══════════════════════════════════════════════
-// CHALLENGE MAP DOT GRID
-// ═══════════════════════════════════════════════
-function initChallengeMap() {
-  const grid = document.getElementById('challenge-map-grid');
-  if (!grid) return;
+function initHeroCompanion() {
+  const label = document.getElementById('companion-label');
+  const speech = document.getElementById('companion-speech');
+  const head = document.querySelector('.companion-head');
+  const torso = document.querySelector('.companion-torso');
+  if (!label || !speech) return;
 
-  const cols = 30;
-  const rows = 6;
-  const dots = [];
+  let idx = 0;
+  function cycle() {
+    idx = (idx + 1) % COMPANIONS.length;
+    const c = COMPANIONS[idx];
+    // Fade out
+    label.style.opacity = '0';
+    speech.style.opacity = '0';
+    if (head) head.style.opacity = '0';
 
-  for (let i = 0; i < cols * rows; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'map-dot';
-    const r = Math.random();
-    if (r < 0.55) dot.dataset.state = 'verified';
-    else if (r < 0.72) dot.dataset.state = 'pending';
-    else dot.dataset.state = 'unmapped';
-    grid.appendChild(dot);
-    dots.push(dot);
+    setTimeout(() => {
+      label.textContent = c.label;
+      speech.innerHTML = c.speech;
+      if (head) head.style.background = c.headBg;
+      if (torso) torso.style.background = c.torsoBg;
+      label.style.transition = 'opacity 0.5s ease';
+      speech.style.transition = 'opacity 0.5s ease';
+      label.style.opacity = '1';
+      speech.style.opacity = '1';
+      if (head) { head.style.transition = 'all 0.5s ease'; head.style.opacity = '1'; }
+    }, 400);
   }
-
-  const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      dots.forEach((dot, i) => {
-        setTimeout(() => {
-          dot.className = 'map-dot ' + dot.dataset.state;
-        }, i * 18 + Math.random() * 200);
-      });
-      observer.disconnect();
-    }
-  }, { threshold: 0.3 });
-
-  observer.observe(grid);
+  setInterval(cycle, 5000);
 }
 
 // ═══════════════════════════════════════════════
-// HEX MAP — Impact section
+// HERO PHONE TREE TOAST
 // ═══════════════════════════════════════════════
-function initHexMap() {
-  const svg = document.getElementById('hex-map');
-  if (!svg) return;
+const TREE_TOASTS = [
+  'Linden · ~140 yrs · logged silently',
+  'English Oak · ~95 yrs · logged silently',
+  'Plane tree · ~60 yrs · logged silently',
+  'Silver Birch · ~45 yrs · logged silently',
+  'Horse Chestnut · ~80 yrs · logged silently',
+];
 
-  const R = 26;
-  const cols = 11;
-  const rows = 8;
-  const hexes = [];
-
-  const districts = [
-    'Altstadt', 'Maxvorstadt', 'Schwabing', 'Bogenhausen',
-    'Isarvorstadt', 'Au', 'Haidhausen', 'Berg am Laim',
-    'Neuhausen', 'Nymphenburg', 'Moosach', 'Milbertshofen',
-    'Schwabing-West', 'Laim', 'Sendling', 'Obergiesing',
-    'Untergiesing', 'Thalkirchen', 'Forstenried', 'Solln',
-    'Hadern', 'Pasing', 'Obermenzing', 'Untermenzing',
-    'Aubing', 'Lochhausen', 'Allach', 'Karlsfeld',
-    'Feldmoching', 'Hasenbergl', 'Ramersdorf', 'Giesing',
-  ];
-
-  let dIdx = 0;
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const cx = col * R * Math.sqrt(3) + (row % 2 === 1 ? R * Math.sqrt(3) / 2 : 0) + 35;
-      const cy = row * R * 1.5 + 35;
-
-      const pts = [];
-      for (let a = 0; a < 6; a++) {
-        const angle = (Math.PI / 180) * (60 * a - 30);
-        pts.push(`${cx + R * 0.92 * Math.cos(angle)},${cy + R * 0.92 * Math.sin(angle)}`);
-      }
-
-      const hex = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      hex.setAttribute('points', pts.join(' '));
-      hex.setAttribute('class', 'hex-cell');
-
-      const r = Math.random();
-      let state;
-      if (r < 0.48) state = 'complete';
-      else if (r < 0.7) state = 'filling';
-      else state = 'empty';
-
-      hex.dataset.state = state;
-      hex.dataset.district = districts[dIdx % districts.length];
-      dIdx++;
-
-      applyHexStyle(hex, 'empty');
-      svg.appendChild(hex);
-      hexes.push(hex);
-
-      // Tooltip on hover
-      hex.addEventListener('mouseenter', () => {
-        hex.setAttribute('opacity', '0.8');
-      });
-      hex.addEventListener('mouseleave', () => {
-        hex.setAttribute('opacity', '1');
-      });
-    }
+function initHeroToast() {
+  const toast = document.getElementById('hp-tree-toast');
+  if (!toast) return;
+  let idx = 0;
+  function show() {
+    toast.textContent = '';
+    toast.innerHTML = `<i class="fa-solid fa-tree"></i> <span>${TREE_TOASTS[idx % TREE_TOASTS.length]}</span>`;
+    toast.classList.add('show');
+    idx++;
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(show, 6000);
+    }, 3000);
   }
-
-  const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      hexes.forEach((hex, i) => {
-        setTimeout(() => {
-          applyHexStyle(hex, hex.dataset.state);
-        }, i * 35 + Math.random() * 400);
-      });
-      observer.disconnect();
-    }
-  }, { threshold: 0.2 });
-
-  observer.observe(svg);
-}
-
-function applyHexStyle(hex, state) {
-  if (state === 'complete') {
-    hex.setAttribute('fill', 'rgba(0,212,163,0.4)');
-    hex.setAttribute('stroke', 'rgba(0,212,163,0.8)');
-    hex.setAttribute('stroke-width', '1.5');
-  } else if (state === 'filling') {
-    hex.setAttribute('fill', 'rgba(255,184,0,0.2)');
-    hex.setAttribute('stroke', 'rgba(255,184,0,0.5)');
-    hex.setAttribute('stroke-width', '1');
-  } else {
-    hex.setAttribute('fill', 'rgba(255,255,255,0.03)');
-    hex.setAttribute('stroke', 'rgba(255,255,255,0.1)');
-    hex.setAttribute('stroke-width', '1');
-  }
+  setTimeout(show, 4000);
 }
 
 // ═══════════════════════════════════════════════
-// GUIDE TABS
+// CONVERSATION PHONE — figure switching
 // ═══════════════════════════════════════════════
-function initGuideTabs() {
-  const tabs = document.querySelectorAll('.guide-tab');
-  const panels = document.querySelectorAll('.guide-panel');
+const CONV_FIGURES = {
+  sisi: {
+    name: 'Empress Elisabeth',
+    route: 'Royal Munich · Chapter 2 of 5',
+    avatarBg: 'linear-gradient(135deg,#1a6fa8,#c9a227)',
+    avatarLetter: 'S',
+    speakerLabel: 'Sisi is speaking',
+    exchanges: [
+      { them: '"We\'re passing the Hofgarten gates. I rode here at dawn — before the court could find me, before the day\'s performance began..."' },
+      { me: 'Were you truly happy here in Munich?' },
+      { them: '"The English Garden gave me what the Hofburg never could. Air. Freedom. No one cared who I was."' },
+    ],
+    toast: 'Linden · ~140 yrs · logged silently',
+  },
+  freddie: {
+    name: 'Freddie Mercury',
+    route: 'Music & Nightlife · Chapter 1 of 4',
+    avatarBg: 'linear-gradient(135deg,#8B1A8B,#FFD700)',
+    avatarLetter: 'F',
+    speakerLabel: 'Freddie is speaking',
+    exchanges: [
+      { them: '"We\'re near where Musicland Studios used to be. We recorded The Works just around that corner. 1983. The city was electric."' },
+      { me: 'Why Munich specifically?' },
+      { them: '"London judged. New York rushed. Munich just... let me be. I celebrated my 39th birthday here. This city was home."' },
+    ],
+    toast: 'Plane tree · ~65 yrs · logged silently',
+  },
+  beckenbauer: {
+    name: 'Franz Beckenbauer',
+    route: 'Football & Sport · Chapter 3 of 4',
+    avatarBg: 'linear-gradient(135deg,#DC052D,#fff)',
+    avatarLetter: 'B',
+    speakerLabel: 'Beckenbauer is speaking',
+    exchanges: [
+      { them: '"Right here — this was the street I played football on as a boy. No academy. No coach. Just this cobblestone and a ball."' },
+      { me: 'What made you Der Kaiser?' },
+      { them: '"I refused the position I was given. A sweeper who attacks. A defender who scores. Munich taught me to reinvent everything."' },
+    ],
+    toast: 'Oak · ~90 yrs · logged silently',
+  },
+  levi: {
+    name: 'Levi Strauss',
+    route: 'Trade & Migration · Chapter 2 of 3',
+    avatarBg: 'linear-gradient(135deg,#4B3728,#c9a227)',
+    avatarLetter: 'L',
+    speakerLabel: 'Levi is speaking',
+    exchanges: [
+      { them: '"I was born just 60 kilometres from here, in Buttenheim. My family spoke Bavarian German. I left at 18 with almost nothing."' },
+      { me: 'Did you ever miss Bavaria?' },
+      { them: '"Every day. You carry your home inside you, wherever you go. The jeans I made in San Francisco — they\'re Bavarian stubbornness in denim."' },
+    ],
+    toast: 'Chestnut · ~75 yrs · logged silently',
+  },
+};
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.guide;
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      const panel = document.getElementById('guide-' + target);
-      if (panel) panel.classList.add('active');
-    });
-  });
-}
-
-// ═══════════════════════════════════════════════
-// AGE CHIPS — update quote bubble
-// ═══════════════════════════════════════════════
-function initAgeChips() {
-  document.querySelectorAll('.age-chips').forEach(container => {
-    const chips = container.querySelectorAll('.chip');
-    const panel = container.closest('.guide-panel');
-    const bubble = panel ? panel.querySelector('.guide-quote-bubble') : null;
-
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        chips.forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        if (bubble && chip.dataset.quote) {
-          bubble.style.opacity = '0';
-          bubble.style.transform = 'translateY(8px)';
-          setTimeout(() => {
-            bubble.innerHTML = chip.dataset.quote;
-            bubble.style.transition = 'all 0.35s ease';
-            bubble.style.opacity = '1';
-            bubble.style.transform = 'translateY(0)';
-          }, 200);
-        }
-      });
-    });
-  });
-}
-
-// ═══════════════════════════════════════════════
-// AR SIMULATION
-// ═══════════════════════════════════════════════
-class ARSimulation {
+class ConversationDemo {
   constructor() {
-    this.bbox = document.getElementById('yolo-bbox');
-    this.speciesLabel = document.getElementById('species-label');
-    this.infoCard = document.getElementById('ar-info-card');
-    this.gpsTag = document.getElementById('gps-tag');
-    this.dataPacket = document.getElementById('data-packet');
-    this.uploadConfirm = document.getElementById('upload-confirm');
-    this.detectedCount = document.getElementById('detected-count');
-    this.expSteps = [
-      document.getElementById('exp-scan'),
-      document.getElementById('exp-identify'),
-      document.getElementById('exp-tag'),
-      document.getElementById('exp-sync'),
-    ];
+    this.chips = document.querySelectorAll('.fig-chip');
+    this.currentFig = 'sisi';
+    this.toastTimer = null;
+    this.typeTimer = null;
 
-    if (!this.bbox) return;
-    this.run();
-  }
-
-  setActive(step) {
-    this.expSteps.forEach((s, i) => {
-      if (s) s.classList.toggle('active', i === step);
+    if (!this.chips.length) return;
+    this.chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        this.chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        this.switchFigure(chip.dataset.fig);
+      });
     });
+
+    this.loadFigure('sisi');
+    this.scheduleToast();
+    this.scheduleTyping();
   }
 
-  run() {
-    this.reset();
-    // Phase 1 — scanning
-    this.setActive(0);
-    if (this.detectedCount) this.detectedCount.textContent = '0';
-
+  switchFigure(fig) {
+    if (fig === this.currentFig) return;
+    this.currentFig = fig;
+    const screen = document.getElementById('cp-header');
+    if (screen) { screen.style.opacity = '0'; screen.style.transition = 'opacity 0.3s'; }
     setTimeout(() => {
-      if (this.detectedCount) this.detectedCount.textContent = '1';
-      this.setActive(1);
-    }, 1200);
+      this.loadFigure(fig);
+      if (screen) { screen.style.opacity = '1'; }
+    }, 300);
+  }
 
-    // Phase 2 — lock on
-    setTimeout(() => {
-      if (this.bbox) this.bbox.classList.add('locked');
-      if (this.speciesLabel) this.speciesLabel.classList.add('visible');
-      if (this.detectedCount) this.detectedCount.textContent = '3';
-    }, 2000);
+  loadFigure(fig) {
+    const data = CONV_FIGURES[fig];
+    if (!data) return;
 
-    // Phase 3 — info card + GPS
-    setTimeout(() => {
-      if (this.infoCard) this.infoCard.classList.add('visible');
-      if (this.gpsTag) this.gpsTag.classList.add('visible');
-      this.setActive(2);
-    }, 2800);
+    const name = document.getElementById('cp-name');
+    const route = document.getElementById('cp-route');
+    const avatar = document.getElementById('cp-avatar');
+    const speakerLabel = document.getElementById('cp-speaker-label');
+    const transcript = document.getElementById('cp-transcript');
 
-    // Phase 4 — data upload
-    setTimeout(() => {
-      this.setActive(3);
-      if (this.dataPacket) {
-        this.dataPacket.classList.add('flying');
-        setTimeout(() => this.dataPacket.classList.remove('flying'), 1100);
+    if (name) name.textContent = data.name;
+    if (route) route.textContent = data.route;
+    if (avatar) {
+      avatar.style.background = data.avatarBg;
+      avatar.textContent = data.avatarLetter;
+    }
+    if (speakerLabel) speakerLabel.textContent = data.speakerLabel;
+
+    if (transcript) {
+      transcript.innerHTML = '';
+      data.exchanges.forEach(ex => {
+        const div = document.createElement('div');
+        if (ex.them) {
+          div.className = 'ct-msg them';
+          div.innerHTML = `<span>${ex.them}</span>`;
+        } else {
+          div.className = 'ct-msg me';
+          div.innerHTML = `<span>${ex.me}</span>`;
+        }
+        transcript.appendChild(div);
+      });
+      // Add typing indicator
+      const typing = document.createElement('div');
+      typing.className = 'ct-msg them typing';
+      typing.id = 'typing-indicator';
+      typing.innerHTML = '<span><div class="typing-dots"><span></span><span></span><span></span></div></span>';
+      transcript.appendChild(typing);
+    }
+  }
+
+  scheduleToast() {
+    const toast = document.getElementById('cp-tree-toast');
+    const toastText = document.getElementById('tree-toast-text');
+    if (!toast) return;
+    const show = () => {
+      const data = CONV_FIGURES[this.currentFig];
+      if (toastText && data) toastText.textContent = data.toast;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        this.toastTimer = setTimeout(show, 9000 + Math.random() * 4000);
+      }, 3500);
+    };
+    this.toastTimer = setTimeout(show, 5000);
+  }
+
+  scheduleTyping() {
+    const showTyping = () => {
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) {
+        indicator.style.display = '';
+        setTimeout(() => {
+          if (indicator) indicator.style.display = 'none';
+          setTimeout(showTyping, 6000 + Math.random() * 4000);
+        }, 2500);
+      } else {
+        setTimeout(showTyping, 2000);
       }
-    }, 4200);
-
-    // Confirm
-    setTimeout(() => {
-      if (this.uploadConfirm) this.uploadConfirm.classList.add('visible');
-    }, 5000);
-
-    // Reset and loop
-    setTimeout(() => this.run(), 7500);
-  }
-
-  reset() {
-    if (this.bbox) this.bbox.classList.remove('locked');
-    if (this.speciesLabel) this.speciesLabel.classList.remove('visible');
-    if (this.infoCard) this.infoCard.classList.remove('visible');
-    if (this.gpsTag) this.gpsTag.classList.remove('visible');
-    if (this.dataPacket) this.dataPacket.classList.remove('flying');
-    if (this.uploadConfirm) this.uploadConfirm.classList.remove('visible');
-    this.setActive(0);
+    };
+    setTimeout(showTyping, 8000);
   }
 }
 
-function initAR() {
-  const section = document.getElementById('ar-magic');
+// ═══════════════════════════════════════════════
+// 3-WALK CONFIRMATION ANIMATION
+// ═══════════════════════════════════════════════
+function init3WalkAnimation() {
+  const section = document.getElementById('mission');
   if (!section) return;
 
-  let started = false;
+  const treeConfirmed = document.getElementById('tree-confirmed');
+  const confResult = document.getElementById('confirmation-result');
+
   const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && !started) {
-      started = true;
-      new ARSimulation();
+    if (entries[0].isIntersecting) {
+      setTimeout(() => {
+        if (treeConfirmed) treeConfirmed.classList.add('animated');
+      }, 3500);
+      setTimeout(() => {
+        if (confResult) confResult.classList.add('show');
+      }, 4000);
       observer.disconnect();
     }
-  }, { threshold: 0.3 });
+  }, { threshold: 0.4 });
 
   observer.observe(section);
 }
 
 // ═══════════════════════════════════════════════
-// LEADERBOARD — staggered row reveal + podium
+// LEADERBOARD ANIMATIONS
 // ═══════════════════════════════════════════════
 function initLeaderboard() {
   const table = document.getElementById('leaderboard-table');
-  if (!table) return;
-
   const podiumBlocks = document.querySelectorAll('.podium-block');
+  if (!table) return;
 
   const observer = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) {
-      // Animate rows
-      const rows = table.querySelectorAll('.lb-row');
-      rows.forEach((row, i) => {
+      table.querySelectorAll('.lb-row').forEach((row, i) => {
         setTimeout(() => row.classList.add('visible'), i * 90);
       });
-      // Animate podium blocks
-      podiumBlocks.forEach(block => block.classList.add('animated'));
+      podiumBlocks.forEach(b => b.classList.add('animated'));
       observer.disconnect();
     }
   }, { threshold: 0.2 });
@@ -512,30 +432,19 @@ function initLeaderboard() {
 }
 
 // ═══════════════════════════════════════════════
-// HERO BUBBLE ROTATION
+// CONVERSATION FEATURE HIGHLIGHTS
 // ═══════════════════════════════════════════════
-function initHeroBubble() {
-  const bubbleText = document.getElementById('hero-bubble-text');
-  if (!bubbleText) return;
+function initConvFeatures() {
+  const features = document.querySelectorAll('.conv-feature');
+  if (!features.length) return;
 
-  const messages = [
-    '"That oak is 180 years old!<br>Tap to learn more 🌳"',
-    '"New data point captured!<br>+250 points earned ⭐"',
-    '"Quest unlocked: Find the<br>Linden of Schwabing 🗺️"',
-    '"Species: Quercus robur<br>Confidence: 97.3% 🎯"',
-    '"You\'re #4 on the Munich<br>leaderboard! Keep going 🏆"',
-  ];
-  let idx = 0;
-
-  setInterval(() => {
-    idx = (idx + 1) % messages.length;
-    bubbleText.style.opacity = '0';
-    setTimeout(() => {
-      bubbleText.innerHTML = messages[idx];
-      bubbleText.style.transition = 'opacity 0.4s ease';
-      bubbleText.style.opacity = '1';
-    }, 350);
-  }, 4000);
+  let current = 0;
+  function cycle() {
+    features.forEach(f => f.classList.remove('active'));
+    features[current].classList.add('active');
+    current = (current + 1) % features.length;
+  }
+  setInterval(cycle, 3500);
 }
 
 // ═══════════════════════════════════════════════
@@ -543,18 +452,18 @@ function initHeroBubble() {
 // ═══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   new ParticleSystem('particle-canvas');
-  new CTAParticles();
+  new ParticleSystem('cta-canvas', 'cta');
 
   initNavbar();
   initMobileMenu();
   initSmoothScroll();
   initReveal();
   initCounters();
-  initChallengeMap();
-  initHexMap();
-  initGuideTabs();
-  initAgeChips();
-  initAR();
+  initLegendCards();
+  initHeroCompanion();
+  initHeroToast();
+  new ConversationDemo();
+  initConvFeatures();
+  init3WalkAnimation();
   initLeaderboard();
-  initHeroBubble();
 });
