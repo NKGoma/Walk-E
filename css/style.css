@@ -756,6 +756,287 @@ footer { background: var(--bg-dark); border-top: 1px solid var(--border); paddin
 .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
 
 /* ═══════════════════════════════════════════════════
+   HERO BEFORE — TWO-CHALLENGE OVERLAY
+═══════════════════════════════════════════════════ */
+#hero-before {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+  /* bottom fade reveals the hero behind */
+  mask-image: linear-gradient(to bottom, black 74%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 74%, transparent 100%);
+  /* no transition until JS adds .lifted */
+  transition: none;
+  overflow: hidden;
+}
+#hero-before.lifted {
+  transform: translateY(-105%);
+  transition: transform 1s cubic-bezier(0.77, 0, 0.18, 1);
+  pointer-events: none;
+}
+.hb-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 clamp(20px, 5vw, 80px);
+}
+.hb-split {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  flex: 1;
+  align-items: center;
+  padding-top: clamp(80px, 10vh, 120px);
+  gap: 0;
+}
+
+/* ── Challenge cards ── */
+.challenge-card {
+  padding: clamp(20px, 3vw, 48px);
+}
+.cc-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cc-label span { color: var(--primary); }
+.cc-harder {
+  font-style: normal;
+  color: var(--accent-gold);
+  font-size: 0.66rem;
+  font-family: var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cc-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1.6rem;
+  text-align: left;
+}
+.cc-stats {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 1rem;
+}
+.cc-stat-n {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.cc-stat-unit { font-size: 1.5rem; }
+.cc-stat-n.warn { color: var(--accent-gold); }
+.cc-stat-l {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.cc-sub {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.72;
+  max-width: 380px;
+}
+
+/* ── Dot grid (Challenge 01 visual) ── */
+.dot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 1.6rem;
+  max-width: 340px;
+}
+.dot-grid span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.dot-grid span.mapped {
+  background: var(--primary);
+  box-shadow: 0 0 5px rgba(0,212,163,0.45);
+}
+
+/* ── Centre divider ── */
+.challenge-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 380px;
+  padding: 48px 0;
+}
+.cd-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(0,212,163,0.35), transparent);
+}
+.cd-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0,212,163,0.12), 0 0 14px rgba(0,212,163,0.4);
+  flex-shrink: 0;
+  animation: node-pulse 2s ease-in-out infinite;
+}
+@keyframes node-pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(0,212,163,0.12), 0 0 14px rgba(0,212,163,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(0,212,163,0.06), 0 0 26px rgba(0,212,163,0.6); }
+}
+
+/* ── Walk scene (Challenge 02 visual) ── */
+.walk-scene {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-bottom: 1.6rem;
+  height: 110px;
+}
+.walk-tree-grey {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: grayscale(1) opacity(0.25);
+}
+.wtg-crown {
+  width: 64px;
+  height: 64px;
+  background: #4a7a4a;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+.wtg-trunk {
+  width: 12px;
+  height: 30px;
+  background: #6b4a2a;
+  border-radius: 2px;
+}
+.walk-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  animation: wf-walk 1.4s ease-in-out infinite;
+}
+@keyframes wf-walk {
+  0%,100% { transform: translateY(0) rotate(-0.8deg); }
+  50% { transform: translateY(-4px) rotate(0.8deg); }
+}
+.wf-head {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  margin-bottom: 2px;
+  /* tilted down — looking at phone */
+  transform-origin: center bottom;
+  transform: rotate(18deg);
+}
+.wf-torso {
+  width: 20px;
+  height: 32px;
+  background: rgba(255,255,255,0.2);
+  clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+  margin-bottom: 2px;
+  position: relative;
+}
+.wf-phone-screen {
+  position: absolute;
+  right: -16px;
+  top: 4px;
+  width: 13px;
+  height: 19px;
+  background: rgba(0,190,255,0.7);
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.15);
+  animation: phone-screen-glow 2.2s ease-in-out infinite;
+}
+@keyframes phone-screen-glow {
+  0%,100% { background: rgba(0,190,255,0.65); }
+  50% { background: rgba(0,212,163,0.85); }
+}
+.wf-legs {
+  display: flex;
+  gap: 5px;
+}
+.wf-leg {
+  width: 8px;
+  height: 26px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 0 0 4px 4px;
+}
+.wf-leg.l { animation: leg-l 0.7s ease-in-out infinite; transform-origin: top; }
+.wf-leg.r { animation: leg-r 0.7s ease-in-out infinite; transform-origin: top; }
+
+/* ── Scroll hint ── */
+.hb-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 0 28px;
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+}
+.hb-arrow-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hb-scroll-arrow {
+  font-size: 1.3rem;
+  color: var(--primary);
+  animation: bounce-arrow 1.6s ease-in-out infinite;
+  display: block;
+}
+@keyframes bounce-arrow {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ── Hero reveal (after state) phone column ── */
+.hero-phone-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.hero-phone-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--primary);
+}
+
+/* ═══════════════════════════════════════════════════
    HERO — TREE VISUAL SIDE (Phase 3)
 ═══════════════════════════════════════════════════ */
 .hero-tree-side {
@@ -1173,8 +1454,14 @@ footer { background: var(--bg-dark); border-top: 1px solid var(--border); paddin
   .tl-line { height: 24px; width: 1px; }
   .edu-grid { grid-template-columns: repeat(2,1fr); }
   .student-quotes-row { grid-template-columns: repeat(2,1fr); }
+  .cc-headline { font-size: clamp(1.6rem,3.2vw,2.6rem); }
 }
 @media (max-width: 900px) {
+  .hb-split { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: clamp(60px,8vh,90px); }
+  .challenge-divider { flex-direction: row; min-height: unset; height: 24px; width: 100%; padding: 0 48px; }
+  .cd-line { flex: 1; width: unset; height: 1px; background: linear-gradient(to right, transparent, rgba(0,212,163,0.35), transparent); }
+  .challenge-card { padding: 20px 0; }
+  .cc-headline { font-size: 1.9rem; }
   #hero { grid-template-columns: 1fr; text-align: center; }
   .hero-content { order: 2; }
   .hero-visual { order: 1; transform: scale(0.85); }

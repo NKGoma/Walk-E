@@ -448,12 +448,45 @@ function initConvFeatures() {
 }
 
 // ═══════════════════════════════════════════════
+// HERO BEFORE — overlay lift + dot grid
+// ═══════════════════════════════════════════════
+function initHeroBefore() {
+  const overlay = document.getElementById('hero-before');
+  if (!overlay) return;
+
+  // Generate dot grid (80 dots, ~23% mapped)
+  const grid = document.getElementById('dot-grid');
+  if (grid) {
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('span');
+      if (Math.random() < 0.23) s.classList.add('mapped');
+      grid.appendChild(s);
+    }
+  }
+
+  // Lift overlay on first scroll
+  let lifted = false;
+  const lift = () => {
+    if (!lifted && window.scrollY > 60) {
+      lifted = true;
+      overlay.classList.add('lifted');
+    }
+  };
+  window.addEventListener('scroll', lift, { passive: true });
+  // Also allow click/tap anywhere on the overlay to lift
+  overlay.addEventListener('click', () => {
+    if (!lifted) { lifted = true; overlay.classList.add('lifted'); window.scrollTo({ top: 100, behavior: 'smooth' }); }
+  });
+}
+
+// ═══════════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   new ParticleSystem('particle-canvas');
   new ParticleSystem('cta-canvas', 'cta');
 
+  initHeroBefore();
   initNavbar();
   initMobileMenu();
   initSmoothScroll();

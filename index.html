@@ -45,95 +45,165 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
-     HERO — problem first, then solution
+     HERO BEFORE — two challenges, full overlay
+══════════════════════════════════════════════ -->
+<div id="hero-before">
+  <div class="hb-inner">
+    <div class="hb-split">
+
+      <!-- Challenge 01: The Data Problem -->
+      <div class="challenge-card c1">
+        <div class="cc-label">CHALLENGE <span>01</span></div>
+        <h2 class="cc-headline">300,000 trees.<br>Barely known.</h2>
+        <div class="dot-grid" id="dot-grid"><!-- JS generates 80 dots --></div>
+        <div class="cc-stats">
+          <div class="cc-stat">
+            <span class="cc-stat-n">77<span class="cc-stat-unit">%</span></span>
+            <span class="cc-stat-l">never verified</span>
+          </div>
+          <div class="cc-stat">
+            <span class="cc-stat-n">€2,400</span>
+            <span class="cc-stat-l">per km² to survey</span>
+          </div>
+        </div>
+        <p class="cc-sub">The city has a data problem it can't afford to fix at traditional cost and pace.</p>
+      </div>
+
+      <!-- Centre divider -->
+      <div class="challenge-divider">
+        <div class="cd-line"></div>
+        <div class="cd-node"></div>
+        <div class="cd-line"></div>
+      </div>
+
+      <!-- Challenge 02: The Motivation Problem -->
+      <div class="challenge-card c2">
+        <div class="cc-label">CHALLENGE <span>02</span> <em class="cc-harder">(the harder one)</em></div>
+        <h2 class="cc-headline">Nobody wants<br>to fix it.</h2>
+        <div class="walk-scene">
+          <div class="walk-tree-grey">
+            <div class="wtg-crown"></div>
+            <div class="wtg-trunk"></div>
+          </div>
+          <div class="walk-figure">
+            <div class="wf-head"></div>
+            <div class="wf-torso">
+              <div class="wf-phone-screen"></div>
+            </div>
+            <div class="wf-legs">
+              <div class="wf-leg l"></div>
+              <div class="wf-leg r"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cc-stats">
+          <div class="cc-stat">
+            <span class="cc-stat-n warn">0</span>
+            <span class="cc-stat-l">students motivated<br>to map trees</span>
+          </div>
+          <div class="cc-stat">
+            <span class="cc-stat-n">∞</span>
+            <span class="cc-stat-l">cost to change<br>human behaviour</span>
+          </div>
+        </div>
+        <p class="cc-sub">You can't crowdsource what nobody wants to do. Hire experts? Slow. Expensive. Students still learn nothing.</p>
+      </div>
+
+    </div>
+
+    <div class="hb-scroll-hint">
+      <div class="hb-arrow-wrap">
+        <span class="hb-scroll-arrow">↓</span>
+      </div>
+      <span>one scroll solves both</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HERO REVEAL — Walk-E: both problems solved
 ══════════════════════════════════════════════ -->
 <section id="hero">
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Left: The tree as protagonist -->
-  <div class="hero-tree-side">
-    <div class="hero-tree-viz">
-      <!-- CSS tree -->
-      <div class="big-tree">
-        <div class="bt-crown">
-          <div class="bt-layer l1"></div>
-          <div class="bt-layer l2"></div>
-          <div class="bt-layer l3"></div>
-          <div class="bt-layer l4"></div>
-        </div>
-        <div class="bt-trunk"></div>
-      </div>
-      <!-- Data overlay — appears on the tree like a digital twin -->
-      <div class="tree-data-card">
-        <div class="tdc-coords"><i class="fa-solid fa-location-dot"></i> 48.1351° N · 11.5820° E</div>
-        <div class="tdc-row"><span>Species</span><span>Quercus robur</span></div>
-        <div class="tdc-row"><span>Est. age</span><span>~182 years</span></div>
-        <div class="tdc-row"><span>CO₂/yr</span><span>21 kg</span></div>
-        <div class="tdc-row"><span>Last verified</span><span class="tdc-unverified">⚠ Never</span></div>
-        <div class="tdc-divider"></div>
-        <div class="tdc-history">
-          <span class="tdc-hist-label">Has witnessed:</span>
-          <div class="tdc-events">
-            <span>Sisi's Munich · 1854</span>
-            <span>Two World Wars</span>
-            <span>1972 Olympics</span>
-            <span>Freddie's Schwabing · 1981</span>
-            <span>German reunification</span>
-            <span>Every summer since</span>
+  <!-- Left: live conversation phone -->
+  <div class="hero-visual hero-phone-col">
+    <div class="hero-phone-wrap">
+      <div class="conv-phone" style="animation:phone-float 6s ease-in-out infinite">
+        <div class="cp-notch"></div>
+        <div class="cp-screen">
+          <div class="cp-header">
+            <div class="cp-avatar" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)">F</div>
+            <div class="cp-info">
+              <span class="cp-name">Freddie Mercury</span>
+              <span class="cp-route">Schwabing Route · Chapter 3 of 5</span>
+            </div>
+            <div class="cp-live"><div class="cp-live-dot"></div>Live</div>
+          </div>
+          <div class="cp-waveform">
+            <div class="cp-speaker-label">Freddie is speaking</div>
+            <div class="waveform-bars">
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div><div class="wv-b"></div>
+              <div class="wv-b"></div><div class="wv-b"></div>
+            </div>
+          </div>
+          <div class="cp-transcript">
+            <div class="ct-msg them">
+              <span>"This street — right here — I walked it every night after the studio. Arabellastraße. Munich never judged me for anything."</span>
+            </div>
+            <div class="ct-msg me"><span>What made Munich different from London?</span></div>
+            <div class="ct-msg them">
+              <span>"London wanted a version of me. Munich just... let me exist. That's rare. That's everything."</span>
+            </div>
+            <div class="ct-msg them typing">
+              <span><div class="typing-dots"><span></span><span></span><span></span></div></span>
+            </div>
+          </div>
+          <div class="cp-tree-toast show" style="opacity:1;transform:translateY(0)">
+            <i class="fa-solid fa-tree"></i>
+            <span>Platanus × acerifolia · ~95 yrs · logged silently</span>
+            <span class="toast-check"><i class="fa-solid fa-check"></i></span>
+          </div>
+          <div class="cp-controls">
+            <div class="cp-progress">
+              <div class="cp-progress-bar"><div class="cp-progress-fill" style="width:58%"></div></div>
+              <span class="cp-distance">2.1 km walked · 1.5 km left</span>
+            </div>
+            <div class="cp-buttons">
+              <div class="cp-btn-secondary"><i class="fa-solid fa-map"></i></div>
+              <div class="cp-btn-mic"><i class="fa-solid fa-microphone"></i></div>
+              <div class="cp-btn-secondary"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Tree number -->
-      <div class="tree-counter-badge">
-        <span class="tcb-num" id="tree-counter-num">1</span>
-        <span class="tcb-of">of <strong>300,000</strong></span>
-        <span class="tcb-label">trees in Munich</span>
+      <div class="hero-phone-label">
+        <i class="fa-solid fa-circle" style="color:var(--ar-green);font-size:0.5rem"></i>
+        Walk with Freddie · Schwabing Route · Live
       </div>
     </div>
   </div>
 
-  <!-- Right: The emotional statement + product reveal -->
+  <!-- Right: the reveal -->
   <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-chip"><i class="fa-solid fa-leaf"></i> Munich TreeQuest Challenge 2025</span>
-    </div>
-
+    <span class="eyebrow-chip"><i class="fa-solid fa-bolt-lightning"></i> Both problems. One walk.</span>
     <h1 class="hero-title">
-      This oak has been here<br>
-      since <span class="gradient-text">1843.</span>
+      Walk with Freddie.<br>
+      Munich gets mapped.<br>
+      <span class="gradient-text">Neither on purpose.</span>
     </h1>
-    <p class="hero-sub-statement">Most students walk past it every day. They don't know its name. The city barely does either.</p>
-
-    <div class="hero-problem-bar">
-      <div class="hpb-stat">
-        <span class="hpb-n">300,000</span>
-        <span class="hpb-l">trees in Munich</span>
-      </div>
-      <div class="hpb-div"></div>
-      <div class="hpb-stat">
-        <span class="hpb-n warn">~23%</span>
-        <span class="hpb-l">fully verified</span>
-      </div>
-      <div class="hpb-div"></div>
-      <div class="hpb-stat">
-        <span class="hpb-n">0</span>
-        <span class="hpb-l">students excited about it</span>
-      </div>
-    </div>
-
-    <p class="hero-pivot">
-      <span class="pivot-line">Until now.</span>
-    </p>
-
     <p class="hero-description">
-      Walk-E doesn't ask students to care about trees. It gives them Sisi, Freddie Mercury, and Beckenbauer — and the trees get mapped anyway.
+      Walk-E gives students Sisi, Freddie Mercury, and Beckenbauer. They get the most entertaining walk of their lives. Munich gets its 300,000 trees verified. Nobody had to care about geodata.
     </p>
-
     <div class="hero-ctas">
-      <a href="#legends" class="btn-primary"><i class="fa-solid fa-play"></i> See How It Works</a>
-      <a href="#student-story" class="btn-secondary"><i class="fa-solid fa-user"></i> Real Student Stories</a>
+      <a href="#legends" class="btn-primary"><i class="fa-solid fa-play"></i> Meet the Legends</a>
+      <a href="#mission" class="btn-secondary"><i class="fa-solid fa-tree"></i> How Trees Get Mapped</a>
     </div>
-
     <div class="hero-legend-faces">
       <span class="legend-face" style="background:linear-gradient(135deg,#1a6fa8,#c9a227)" title="Empress Sisi">S</span>
       <span class="legend-face" style="background:linear-gradient(135deg,#8B1A8B,#FFD700)" title="Freddie Mercury">F</span>
@@ -141,13 +211,13 @@
       <span class="legend-face" style="background:linear-gradient(135deg,#4B3728,#c9a227)" title="Levi Strauss">L</span>
       <span class="legend-face" style="background:linear-gradient(135deg,#0A5C8A,#00D4A3)" title="Heisenberg">H</span>
       <span class="legend-face" style="background:linear-gradient(135deg,#1C69D3,#fff)" title="BMW Founders">⚙</span>
-      <span class="hero-more-legends">+ more</span>
+      <span class="hero-more-legends">+ more legends</span>
     </div>
   </div>
 
   <div class="scroll-indicator">
     <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-    <span>The solution is simpler than you think</span>
+    <span>scroll to explore</span>
   </div>
 </section>
 
